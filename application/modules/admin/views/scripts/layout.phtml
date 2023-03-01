@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>MOOC Admin - DPR RI</title>
+<?=$this->headScript();?>
+<?=$this->headLink();?>
+
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 0;
+
+$(document).ready(function() {
+	/** 
+	 * Build menu 
+	 */
+	$('ul.t_a_ui_mega_menu li.sub').css({'opacity':'0'});
+	$('ul.t_a_ui_mega_menu li').hoverIntent({    
+		sensitivity: 2,
+		interval: 100,
+		over: megaHoverOver,    
+		timeout: 200,
+		out: megaHoverOut
+	});
+}); 
+</script>
+</head>
+
+<?
+$auth = Zend_Auth::getInstance()->getIdentity();
+$peran = $auth->peran;
+$username = $auth->nama;
+?>
+
+<body>
+<div id="container">
+	<!-- header -->
+   	<div id="header">
+    	<div id="top"></div>
+		<div id="nav-bar">        
+			<div id="topnav-bar">
+	    		<div id="topleft">
+					<ul id="topnav">
+						<li><a class="home" href="/admin"><img src="<?=$this->url_statik;?>/images/admin/logoapp-<?=$this->domain;?>.png"></a></li>
+					</ul>
+				</div>
+		        <div id="topright">
+					<ul id="topnav">
+						<li><a href="/login/logout">Log Out</a></li>
+						<li id="help"><a href="http://portal.dpr.go.id">&nbsp;Portal&nbsp;</a></li>
+					</ul>
+				</div>
+
+				<!-- START Menu -->
+				<div id="menu">
+					<ul class="t_a_ui_mega_menu">
+						<? if ($peran == 'admin' || $peran == 'super' || $peran == 'user') { ?>
+							<li>
+								<a href="#">MOOC</a>
+								<div style="opacity: 0; display: none; width: 700px;" class="sub">
+								<div style="margin: 0px;" class="row">
+									<ul>
+										<li><span>Referensi</span></li>
+										<li><a href="/admin/peserta/index" title="Kelas">Daftar Peserta</a></li>
+										<li><a href="/admin/pesertanonasn/index" title="Kelas">Daftar Peserta Non ASN</a></li>
+										<li><a href="/admin/pelatihan/index" title="Kelas">Daftar Pelatihan</a></li>
+										<li><a href="/admin/kelas/index" title="Kelas">Daftar Kelas</a></li>
+										<li><a href="/admin/batch/index" title="Kelas">Daftar Batch</a></li>
+										<li><a href="/admin/pengajar/index" title="Kelas">Daftar Pengajar</a></li>
+										<li><a href="/admin/tipe/index" title="Tipe">Daftar Tipe</a></li>
+										<li><a href="/admin/coach/index" title="Tipe">Daftar Coach</a></li>
+										<li><a href="/admin/mentor/index" title="Tipe">Daftar Mentor</a></li>
+										<li><a href="/admin/kelas-silabus-materi/index" title="Tipe">kelas Silabus Materi</a></li>
+									</ul>
+									<ul>
+										<li><span>Laporan</span></li>
+										<li><a href="/admin/laporan-kustom" title="Laporan">Laporan Kustom</a></li>
+									</ul>
+								</div>
+							</li>
+
+							<li>
+								<a href="#">MENU</a>
+								<div style="opacity: 0; display: none; width: 700px;" class="sub">
+								<div style="margin: 0px;" class="row">
+									<ul>
+										<li><span>Artikel</span></li>
+										<li><a href="/admin/tipe-artikel/index" title="Tipe Artikel">Daftar Tipe Artikel</a></li>
+										<li><a href="/admin/tipe-artikel/add" title="Tipe Artikel"><i>Tambah Tipe Artikel</i></a></li>
+										<li><a href="/admin/subtipe-artikel/index" title="Subtipe Artikel">Daftar Subtipe Artikel</a></li>
+										<li><a href="/admin/subtipe-artikel/add" title="Subtipe Artikel"><i>Tambah Subtipe Artikel</i></a></li>
+										<li><a href="/admin/artikel/index" title="Artikel">Daftar Artikel</a></li>
+										<li><a href="/admin/artikel/add" title="Artikel"><i>Tambah Artikel</i></a></li>
+									</ul>
+									<ul>
+										<li><span>Website</span></li>
+										<li><a href="/admin/faq/index" title="FAQ">Daftar FAQ</a></li>
+										<li><a href="/admin/faq/add" title="FAQ"><i>Tambah FAQ</i></a></li>
+										<li><a href="/admin/konten-setting/index" title="Konten Setting">Daftar Konten Setting</a></li>
+										<li><a href="/admin/konten-setting/add" title="Konten Setting"><i>Tambah Konten Setting</i></a></li>
+										<li><a href="/admin/konten-statis/index" title="Konten Statis">Daftar Konten Statis</a></li>
+										<li><a href="/admin/konten-statis/add" title="Konten Statis"><i>Tambah Konten Statis</i></a></li>
+										<li><a href="/admin/kontak/index" title="Kontak">Daftar Kontak</a></li>
+										<li><a href="/admin/kontak/add" title="Kontak"><i>Tambah Kontak</i></a></li>
+									</ul>
+									<ul>
+										<li><span>Laporan</span></li>
+										<li><a href="/admin/laporan-kustom" title="Laporan">Laporan Kustom</a></li>
+									</ul>
+								</div>
+							</li>
+						<? } ?>
+					</ul>
+				</div>	
+				<!-- END Menu -->
+			</div>		
+		</div>
+	</div>
+	<!-- header -->
+
+	<!-- content -->
+    <div id="content-container">
+        <div id="content-block" class="single">
+			<?=$this->layout()->content;?>
+        </div>
+    </div>
+    <div style="clear: both;"></div>
+	<!-- content -->
+
+	<!-- footer -->
+    <div id="footer">
+		<div style="clear: both;"></div>
+		<?=$this->copyright;?>
+    </div>
+	<!-- footer -->
+
+</div>
+</body>
+</html>

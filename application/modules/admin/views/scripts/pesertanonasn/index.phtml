@@ -1,0 +1,60 @@
+<script id="js">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Pesertanonasn</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/pesertanonasn/add" class="UIlink-button small right">Tambah Pesertanonasn</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table class="tablesorter">
+		 <thead>
+			 <tr>
+			 	<th width="5px">No.</th>
+				<th>Nama</th>
+				<th>Tempat Lahir</th>
+				<th>Agama</th>
+				<th>Pekerjaan</th>
+				<th>Aksi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$index = 1;
+			foreach($this->rows as $row)
+			{
+				echo '<tr>';
+				echo '<td align="center">'. $index++ .'.</td>';
+				echo '<td>'. $row->nama .'</td>';
+				echo '<td>'. $row->tempat_lahir .'</td>';
+				echo '<td>'. $row->agama .'</td>';
+				echo '<td>'. $row->pekerjaan .'</td>';
+				echo '<td align="center"><a href="/admin/pesertanonasn/edit/id/'. $row->id .'">EDIT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/pesertanonasn/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				}
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+}
+?>

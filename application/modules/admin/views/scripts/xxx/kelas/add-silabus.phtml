@@ -1,0 +1,24 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Silabus</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/edit/id/<?=$this->id;?>">Back to Daftar Kelas</a></div>
+	
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_silabus">Nama Silabus</label>
+			<textarea id="nama_silabus" class="event-message" wrap="soft" rows="6" cols="60" name="nama_silabus" style="overflow: hidden; display: block;"></textarea>
+		</p>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/kelas/edit/id/<?=$this->id;?>" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

@@ -1,0 +1,134 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	});
+	$(function() {
+		$("#tgl_awal").datepicker({
+			yearRange: "-1:+0",
+			changeYear: "true",
+			changeMonth: "true",
+			dateFormat: "dd-mm-yy"
+		});
+		$("#tgl_akhir").datepicker({
+			yearRange: "-1:+0",
+			changeYear: "true",
+			changeMonth: "true",
+			dateFormat: "dd-mm-yy"
+		});
+	});
+</script>
+<script>
+	function selectFields1(id, id, nama_kelas) {
+		$('#id_kelas').val(id);
+		// $('#nit_tsp').val(id);
+		$('#nama_kelas').val(nama_kelas);
+		$.facebox.close();
+	}
+
+	function ClearFields1() {
+		document.getElementById("id_kelas").value = "";
+		// document.getElementById("nit_tsp").value = "";
+		document.getElementById("nama_kelas").value = "";
+	}
+
+	function selectFields2(id, id, nama_pengajar) {
+		$('#id_pengajar').val(id);
+		// $('#nit_tsp').val(id);
+		$('#nama_pengajar').val(nama_pengajar);
+		$.facebox.close();
+	}
+
+	function ClearFields2() {
+		document.getElementById("id_pengajar").value = "";
+		// document.getElementById("nit_tsp").value = "";
+		document.getElementById("nama_pengajar").value = "";
+	}
+</script>
+
+<script src="<?= $this->url_statik; ?>/js/tinymce/tinymce.min.js"></script>
+
+<script>
+	// create changeBatch function
+	function changeBatch() {
+		var jenis_batch = document.getElementById("jenis_batch").value;
+		if (jenis_batch == 1) {
+			// show tgl_awal and tgl_akhir
+			document.getElementById("tanggal_awal").style.display = "block";
+			document.getElementById("tanggal_akhir").style.display = "block";
+			document.getElementById("tgl_awal").style.display = "block";
+			document.getElementById("tgl_akhir").style.display = "block";
+
+		} else {
+			// hide tgl_awal and tgl_akhir
+			document.getElementById("tanggal_awal").style.display = "none";
+			document.getElementById("tanggal_akhir").style.display = "none";
+			document.getElementById("tgl_awal").style.display = "none";
+			document.getElementById("tgl_akhir").style.display = "none";
+		}
+	}
+
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?= $this->avatar; ?>Tambah Batch</h1>
+	<div class="header_nav_links"><a href="/admin/batch/index">Back to Daftar Batch</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="judul_batch">Judul Batch</label>
+			<textarea id="judul_batch" class="event-message" wrap="soft" rows="6" cols="60" name="judul_batch" style="overflow: hidden; display: block;"></textarea>
+		</p>
+
+		<p>
+			<label class="left" for="deskripsi">Deskripsi Batch</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="6" cols="60" name="deskripsi" style="overflow: hidden; display: block;"></textarea>
+		</p>
+
+		<p>
+			<label class="left" for="deskripsi">Jenis Batch</label>
+			<select name="jenis_batch" id="jenis_batch" onchange="changeBatch()">
+				<option value="1">Free Batch</option>
+				<option value="2">Offline</option>
+			</select>
+
+		</p>
+
+		<p><label>Nama Kelas</label>
+			<input readonly class="required" type="text" id="nama_kelas" autocomplete="disable" name="nama_kelas" />
+			<input class="required" type="hidden" id="id_kelas" autocomplete="disable" name="id_kelas" value="<?= $this->row->id_kelas; ?>" />
+			<input type="button" value="..." id="btnkelas" onclick="jQuery.facebox({ ajax: '/admin/batch/search-kelas'});">
+			<input type="button" onclick="ClearFields1();" value="Clear">
+			<font color="red">*</font>
+		</p>
+		<p><label>Nama Pengajar</label>
+			<input readonly class="required" type="text" id="nama_pengajar" autocomplete="disable" name="nama_pengajar" />
+			<input class="required" type="hidden" id="id_pengajar" autocomplete="disable" name="id_pengajar" value="<?= $this->row->id_pengajar; ?>" />
+			<input type="button" value="..." id="btnpengajar" onclick="jQuery.facebox({ ajax: '/admin/batch/search-pengajar'});">
+			<input type="button" onclick="ClearFields2();" value="Clear">
+			<font color="red">*</font>
+		</p>
+
+		<p><label>Tambah Peserta</label>
+			<input readonly class="required" type="text" id="nama_pengajar" autocomplete="disable" name="nama_pengajar" />
+			<!-- <input class="required" type="hidden" id="id_pengajar" autocomplete="disable" name="id_pengajar" value="<?= $this->row->id_pengajar; ?>" /> -->
+			<input type="button" value="..." id="btnpengajar" onclick="jQuery.facebox({ ajax: '/admin/batch/search-pengajar'});">
+			<input type="button" onclick="ClearFields2();" value="Clear">
+			<font color="red">*</font>
+		</p>
+
+		<p id="tanggal_awal"><label>Tanggal Awal</label>
+			<input type="text" id="tgl_awal" autocomplete="disable" name="tgl_awal" value="<?= date('d-m-Y'); ?>" style="width: 120px;" />
+			<font color="red">*</font>
+		</p>
+		<p id="tanggal_akhir"><label>Tanggal Akhir</label>
+			<input type="text" id="tgl_akhir" autocomplete="disable" name="tgl_akhir" value="<?= date('d-m-Y'); ?>" style="width: 120px;" />
+			<font color="red">*</font>
+		</p>
+
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/batch/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

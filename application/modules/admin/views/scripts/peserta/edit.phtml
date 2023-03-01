@@ -1,0 +1,30 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Peserta</h1>
+	<div class="header_nav_links"><a href="/admin/peserta/index">Back to Daftar Peserta</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama">Peserta</label>
+			<textarea id="nama" class="event-message required" wrap="soft" rows="6" cols="60" name="nama" style="overflow: hidden; display: block;"><?=$this->row->nama;?></textarea>
+		</p>
+		
+		<input type="hidden" id="id" name="id" value="<?=$this->row->id;?>">
+	    
+		<p class="savecancel">
+			<?
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			?>
+			<a href="/admin/peserta/index" class="UIbutton-small">Batal</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

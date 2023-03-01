@@ -1,0 +1,42 @@
+		<!---->
+		<div class="contact">
+				<div class="col-md-6 contact-top">
+					<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+					<h3><?=$this->rows[0]->nilai;?></h3>
+						<div>
+							<span>Nama </span>		
+							<input type="text" value="" name="nama">						
+						</div>
+						<div>
+							<span>Email </span>		
+							<input type="text" value="" name="email">						
+						</div>
+						<div>
+							<span>Subyek</span>		
+							<input type="text" value="" name="judul">	
+						</div>
+						<div>
+							<span>Pesan</span>		
+							<textarea name="pesan"> </textarea>	
+						</div>
+						<input type="submit" value="KIRIM" >	
+					</form>
+				</div>
+				<div class="col-md-6 contact-top">
+					<h3>Info</h3>
+					<ul class="social ">
+						<li><span><i > </i><?=$this->rows[1]->nilai;?> </span></li>
+						<li><span><i class="down"> </i><?=$this->rows[2]->nilai;?></span></li>
+						<li><a href="mailto:info@example.com"><i class="mes"> </i><?=$this->rows[3]->nilai;?></a></li>
+					</ul>
+					<p><?=$this->rows[4]->nilai;?> </p>		
+					<div class="map">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d991.6031371799952!2d106.80083936861048!3d-6.20919203417527!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f6b735ae6133%3A0x214dde968c25b376!2sSekretariat+Jenderal+DPR-RI!5e0!3m2!1sen!2sid!4v1555568781107!5m2!1sen!2sid" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+					</div>
+				</div>
+			<div class="clearfix"> </div>
+			</div>
+
+	</div>
+	<i class="line"> </i>
+	<i class="line-in"> </i>

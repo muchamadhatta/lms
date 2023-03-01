@@ -1,0 +1,55 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose_facebox").validate();
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Edit File</h1>
+</div>
+<div class="clear"></div>
+<form id="compose_facebox" name="compose_facebox" method="post" action="/admin/artikel/edit-file" enctype="multipart/form-data">
+	<div class="tabular">		
+		<p><label>Jenis</label>
+			<select id="jenis" name="jenis" class="required">
+				<option value="">Pilih Data...</option>
+				<? 
+				$arrJenis = array(0 => 'File', 1 => 'Image');
+				foreach($arrJenis as $key => $value) 
+				{ 
+					$selected = ($this->row->jenis == $key) ? ' selected' : '';
+					echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';	
+				} 
+				?>
+			</select> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input type="text" class="required" id="judul" name="judul" value="<?=$this->row->judul;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label>File :</label>
+			<?
+			if ($this->row->file_name == "") {
+				echo '<input type="file" id="file" autocomplete="disable" name="file"/>';
+			} else {
+				echo '<a href="' .$this->url_berkas . '/artikel/' . $this->row->file_name . '" target="_blank">' . $this->row->file_name . '</a> (' . $this->ByteFormat($this->row->file_size) . ')';				
+				if ($this->getRole() == "admin" || $this->getRole() == "super") {
+					echo ' [<a href="/admin/artikel/delete-attachment/id/' . $this->row->id . '/id_artikel/' . $this->row->id_artikel . '">Delete</a>]';
+				} 
+			}
+			?>		
+		</p>
+	    
+		<p class="savecancel">
+			<input type="hidden" id="id" name="id" value="<?=$this->row->id;?>">
+			<input type="hidden" id="id_artikel" name="id_artikel" value="<?=$this->row->id_artikel;?>">
+			<? if ($this->getRole() == 'admin' || $this->getRole() == 'super') { ?>
+				<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<? } ?>
+			<a href="#" onclick="$(document).trigger('close.facebox');" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

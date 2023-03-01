@@ -1,0 +1,60 @@
+<script id="js">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Coach</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/coach/add" class="UIlink-button small right">Tambah Coach</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table class="tablesorter">
+		 <thead>
+			 <tr>
+			 	<th width="5px">No.</th>
+				<th>Foto</th>
+				<th>Nama/NIP Coach</th>
+				<th>Instansi</th>
+				<th>Kontak</th>
+				<th>Aksi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$index = 1;
+			foreach($this->rows as $row)
+			{
+				echo '<tr>';
+				echo '<td align="center">'. $index++ .'.</td>';
+				echo '<td align="center"><img src="https://berkas.dpr.go.id/mooc/fotocoach/'.$row->fotocoach_uri.'" width="80px"></td>';
+				echo '<td>'.$row->nama_coach.'<br><span class="timespan">'.'NIP/NIK:'.''.$row->identitas_coach.'</span></td>';
+				echo '<td align="center">'. $row->instansi .'</td>';
+				echo '<td>'.$row->email.'<br><span class="timespan">'.$row->no_telp.'</span></td>';
+				echo '<td align="center"><a href="/admin/coach/edit/id/'. $row->id .'">EDIT</a>';
+				// if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/coach/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				// }
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+}
+?>

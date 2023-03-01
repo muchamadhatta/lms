@@ -1,0 +1,126 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+
+		$("table")
+			.tablesorter({
+				theme: 'blue',
+				widthFixed: true,
+				widgets: ['zebra', 'filter']
+			})
+			.tablesorterPager({
+				container: $(".pager"),
+				output: '{startRow} - {endRow} / {filteredRows} ({totalRows})',
+				fixedHeight: true,
+				removeRows: false,
+				cssGoto: '.gotoPage'
+			});
+	})
+</script>
+<script src="<?= $this->url_statik; ?>/js/tinymce/tinymce.min.js"></script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?= $this->avatar; ?>Edit Kelas</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/index">Back to Daftar Kelas</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_kelas">Nama Kelas</label>
+			<textarea id="nama_kelas" class="required" wrap="soft" rows="4" cols="60" name="nama_kelas" style="overflow: hidden; display: block;"><?= $this->row->nama_kelas; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="deskripsi">Deskripsi Kelas</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="6" cols="60" name="deskripsi" style="overflow: hidden; display: block;"><?= $this->row->deskripsi; ?></textarea>
+		</p>
+		<p><label>Jenis Kelas</label><select class="required" id="jenis_kelas" name="jenis_kelas">
+		<option value="">Pilih Data...</option>
+		<?
+		$arrJenisKelas = array('1' => 'Introduction', '2' => 'Beginner', '3' => 'Intermediate', '4' => 'Advance');
+		foreach($arrJenisKelas as $key => $value)
+		{
+			$selected = ($this->row->jenis_kelas == $key) ? ' selected' : '';
+			echo '<option value="' . $value . '"' . $selected . '>' . $value . '</option>';
+		}
+		?>
+		</select>  <font color="red">*</font></p>
+		<p>
+			<label class="left" for="nama_kelas">Thumbnail</label> 
+			<?
+			if ($this->row->thumbnail_uri != "") {
+				echo '<img src="https://berkas.dpr.go.id/mooc/thumbkelas/' . $this->row->thumbnail_uri . '" height="200" />';
+				echo '<a href="/admin/kelas/delete-files/id/' . $this->row->id . '  ">Hapus</a>';
+			} else {
+				echo '<input type="file" id="file_name" autocomplete="disable" name="file_name"/>';
+			}
+			?>
+		</P>
+		<p><label>Tentang Kelas <?= $this->ref; ?></label></p>
+		<div class="col-md-12 border-bottom p-0">
+			<textarea id="tentang" name="tentang" placeholder="Tambah <?= $this->ref; ?> disini"></textarea>
+		</div>
+
+		<script>
+			tinymce.init({
+				selector: '#tentang',
+				plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image code link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime lists advlist textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+				toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link image | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+				setup: function(editor) {
+					editor.on('init', function(e) {
+						editor.setContent(<?= json_encode($this->row->tentang); ?>);
+					});
+				}
+			});
+		</script>
+
+
+		<p class="savecancel">
+			<input type="hidden" id="id" name="id" value="<?= $this->row->id; ?>">
+			<?
+			if ($this->getRole() == "admin" || $this->getRole() == "super" || $this->getRole() == "user") {
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			}
+			?>
+			<a href="/admin/kelas/add-silabus/id/<?= $this->row->id; ?>" class="UIbutton-small">Tambah Silabus</a>&nbsp;
+			<a href="/admin/kelas/index" class="UIbutton-small">Batal</a>
+		</p>
+		<br>
+		<hr>
+
+		<? if (count($this->rows) > 0) { ?>
+			<?= $this->pager; ?>
+
+			<table class="tablesorter">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Nama Silabus</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$index = 1;
+					foreach ($this->rows as $row) {
+						echo '<tr>';
+						echo '<td align="center">' . $index++ . '.</td>';
+						echo '<td>' . $row->nama_silabus . '</td>';
+						echo '<td align="center"><a href="/admin/kelas/edit-silabus/id/' . $row->id . '">EDIT</a>';
+						if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+							echo '&nbsp;|&nbsp;<a href="/admin/kelas/delete-silabus/id/' . $row->id . '/id_kelas/' . $row->id_kelas . '" onclick="return confirmDelete();">DELETE</a>';
+						}
+						echo '</td>';
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		<? } else {
+			echo "<p style='color:red;'>Silabus belum ditambahkan!</p>";;
+		}
+		?>
+	</div>
+</form>
+<div style="clear:both"></div>

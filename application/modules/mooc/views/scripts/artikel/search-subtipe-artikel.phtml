@@ -1,0 +1,38 @@
+<script type="text/javascript">
+$(function() {
+	$("#search_table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<?=$this->pager;?>
+
+<table id="search_table" class="tablesorter">
+	<thead>
+		<tr>
+			<th>Subtipe Artikel</th>
+			<th>Tipe Artikel</th>
+			<th>Aksi</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?
+		$i = 1;
+		foreach($this->rows as $row)
+		{
+			echo '<tr>';
+			echo '<td align="center">' . $row->subtipe_artikel . '</td>';
+			echo '<td>' . $row->tipe_artikel . '</td>';
+			echo '<td align="center"><a href=\'javascript:selectFields("' . $row->id . '", "' . $row->subtipe_artikel . '", "' . $row->id_tipe_artikel . '", "' . $row->tipe_artikel . '");\'>PILIH</a></td>';
+			echo '</tr>';
+
+			$i++;
+		}	
+		?>	
+	</tbody>
+</table>

@@ -1,0 +1,82 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+
+		$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Edit Subtipe Artikel</h1>
+	<div class="header_nav_links"><a href="/admin/subtipe-artikel/index">Back to Daftar Subtipe Artikel</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="subtipe_artikel">Subtipe Artikel :</label>
+			<input type="text" class="required" id="subtipe_artikel" name="subtipe_artikel" value="<?=$this->row->subtipe_artikel;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="id_tipe_artikel">Tipe Artikel :</label>
+			<select class="required" id="id_tipe_artikel" name="id_tipe_artikel">
+				<option value="">Pilih Data...</option>
+				<?
+				foreach($this->TipeArtikelRows as $row)
+				{
+					$selected = ($this->row->id_tipe_artikel == $row->id) ? ' selected' : '';
+					echo '<option value="' . $row->id . '"' . $selected . '>' . $row->tipe_artikel . '</option>';
+				}
+				?>
+			</select> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="konten">Deskripsi :</label>
+			<textarea class="required" id="konten" name="konten" wrap="soft" rows="6" cols="60"><?=$this->row->konten;?></textarea> <font color="red">*</font>
+		</p>
+		
+		<? if (count($this->rows) > 0) { ?>
+		<br>
+		<?=$this->pager;?>
+		<table class="tablesorter">
+			<thead>
+				<tr>
+					<th width="50px">No.</th>
+					<th>Judul</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				$indeks = 1;
+				foreach($this->rows as $row)
+				{
+					echo '<tr>';
+					echo '<td align="center">' . $indeks . '.</td>';
+					echo '<td>'. $row->judul .'</td>';
+					echo '</tr>';
+
+					$indeks++;
+				}
+				?>
+			</tbody>
+		</table>
+		<? } ?>
+
+		<br>
+	    
+		<p class="savecancel">
+			<? if ($this->getRole() == 'admin' || $this->getRole() == 'super') { ?>
+				<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<? } ?>
+			<a href="/admin/subtipe-artikel/index" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

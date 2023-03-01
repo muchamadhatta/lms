@@ -1,0 +1,66 @@
+	<script type="text/javascript">
+	$(function() {
+		$(function() {
+			$("#table2")
+				.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+				.tablesorterPager({container: $(".pager2"), 
+									output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+									fixedHeight: true, 
+									removeRows: false, 
+									cssGoto: '.gotoPage' });
+		});
+	});
+	</script>
+
+	<h2><center>LAPORAN KUSTOM SEMAR<br><?=$this->row->judul;?></center></h2>
+	<br/>
+
+<?
+if (count($this->rows) > 0)
+{
+?>
+
+	<?=$this->pager2;?>
+
+	<table class="tablesorter" id="table2">
+		<thead>
+			<tr>
+				<?php
+				$rowCount = 1;
+				foreach ($this->rows as $rowArray) {
+					echo '<tr>';
+					echo '<th align="center"width="30">No.</th>';
+					foreach ($rowArray as $column => $value) {
+						if (substr($column, 0, 6) == 'Jumlah')
+							echo '<th align="center">' . substr($column, 7, strlen($column)) . '</th>';
+						else
+							echo '<th align="center">' . $column . '</th>';
+					}
+					echo '</tr>';
+					break;
+					++$rowCount;
+				}
+				?>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$rowCount = 1;
+			foreach ($this->rows as $rowArray) {
+				echo '<tr>';
+				echo '<td align="center">' . $rowCount . '.</td>';
+				foreach ($rowArray as $column => $value) {
+					if (substr($column, 0, 6) == 'Jumlah')
+						echo '<td align="right">' . $this->FormatNumber($value) . '</td>';
+					else
+						echo '<td>' . $value . '</td>';
+				}
+				echo '</tr>';
+				++$rowCount;
+			}
+			?>
+		</tbody>
+	</table>
+<? } else { ?>
+	Tidak ada data
+<? } ?>

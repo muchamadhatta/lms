@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose_facebox").validate();
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Reply Kontak</h1>
+</div>
+<div class="clear"></div>
+<form id="compose_facebox" name="compose_facebox" method="post" action="/admin/kontak/reply" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="balasan">Balasan :</label>
+			<textarea class="required" id="balasan" name="balasan" wrap="hard" rows="6" cols="60"></textarea> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel">
+			<input type="hidden" id="id" name="id" value="<?=$this->id;?>">
+			<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<a href="#" onclick="$(document).trigger('close.facebox');" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

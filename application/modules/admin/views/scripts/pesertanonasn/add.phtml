@@ -1,0 +1,53 @@
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 4;
+
+	$(document).ready(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-100:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Pesertanonasn</h1>
+	<div class="header_nav_links"><a href="/admin/pesertanonasn/index">Back to Daftar Pesertanonasn</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama">Nama</label>
+			<input id="nama" class="event-message" wrap="soft" rows="6" cols="60" name="nama" style="overflow: hidden; display: block;"></input>
+		</p>
+		<p>
+			<label class="left" for="tempat_lahir">Tempat Lahir</label>
+			<input id="tempat_lahir" class="event-message" wrap="soft" rows="6" cols="60" name="tempat_lahir" style="overflow: hidden; display: block;"></input>
+		</p>
+		<p>
+			<label class="left" for="tanggal">Tanggal Lahir :</label>
+			<input readonly type="text" class="datepicker required" id="tanggal_lahir" name="tanggal_lahir" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="">Agama</label>
+			<input id="agama" class="event-message" wrap="soft" rows="6" cols="60" name="agama" style="overflow: hidden; display: block;"></input>
+		</p>
+		<p>
+			<label class="left" for="">Status Perkawinan</label>
+			<input id="status_perkawinan" class="event-message" wrap="soft" rows="6" cols="60" name="status_perkawinan" style="overflow: hidden; display: block;"></input>
+		</p>
+		
+		<p>
+			<label class="left" for="">Pekerjaan</label>
+			<input id="pekerjaan" class="event-message" wrap="soft" rows="6" cols="60" name="pekerjaan" style="overflow: hidden; display: block;"></input>
+		</p>
+		<p>
+			<label class="left" for="">Kewarganegaraan</label>
+			<input id="kewarganegaraan" class="event-message" wrap="soft" rows="6" cols="60" name="kewarganegaraan" style="overflow: hidden; display: block;"></input>
+		</p>
+		
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/pesertanonasn/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

@@ -1,0 +1,48 @@
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 4;
+
+	$(document).ready(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-100:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Coach</h1>
+	<div class="header_nav_links"><a href="/admin/coach/index">Back to Daftar Coach</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_coach">Nama Coach</label>
+			<input id="nama_coach" class="event-message" wrap="soft" rows="6" cols="60" name="nama_coach" style="overflow: hidden; display: block;"></input>
+		</p>
+		<p>
+			<label class="left" for="identitas_coach">NIP/NIK</label>
+			<input id="identitas_coach" class="event-message" wrap="soft" rows="2" cols="60" name="identitas_coach" style="overflow: hidden; display: block;"><?= $this->identitas_coach ?></input>
+		</p>
+		<p>
+			<label class="left" for="instansi">Asal Instansi</label>
+			<input id="instansi" class="event-message" wrap="soft" rows="2" cols="60" name="instansi" style="overflow: hidden; display: block;"><?= $this->instansi; ?></input>
+		</p>
+		<p>
+			<label class="left" for="email">Email</label>
+			<input id="email" class="event-message" wrap="soft" rows="2" cols="60" name="email" style="overflow: hidden; display: block;"><?= $this->email; ?></input>
+		</p>
+		<p>
+			<label class="left" for="no_telp">No Telp</label>
+			<input id="no_telp" class="event-message" wrap="soft" rows="2" cols="60" name="no_telp" style="overflow: hidden; display: block;"><?= $this->no_telp ?></input>
+		</p>
+		<p>
+			<label class="left" for="fotocoach_uri">Foto Coach</label> 
+			<input type="file" accept="image/*" id="file_name" name="file_name">
+		</P>
+		
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/coach/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

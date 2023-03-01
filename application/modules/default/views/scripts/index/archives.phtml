@@ -1,0 +1,94 @@
+		<!---->
+		<div class="archives">		
+		  <h2>ARSIP</h2>
+		  <div class="archives-top">
+				<div class="col-md-3 top-archives">
+					<h3>PER BULAN:</h3>
+				</div>
+				<?
+				$numRows = count($this->ArchivesByMonthRows);
+				$halaman = ceil($numRows / 3);
+
+				$indeks = 1;
+				foreach($this->ArchivesByMonthRows as $row)
+				{
+					if ($indeks == 1 || $indeks % $halaman == 1)						
+					{
+						if ($indeks > 1)
+							echo '</ul></div>';
+
+						echo '<div class="col-md-3 top-archives">
+							<ul>';
+						$indeks = 1;
+					}
+
+					echo '<li><a href="/index/cinema/id/' . $row->id . '">' . $row->keterangan . ' (' . $row->jumlah . ')</a></li>';
+
+					$indeks++;
+				}
+				echo '</ul></div>';
+				?>
+				<div class="clearfix"></div>
+		  </div>
+		  <div class="archives-top">
+				<div class="col-md-3 top-archives">
+					<h3>PER KATEGORI:</h3>
+				</div>
+				<?
+				$numRows = count($this->ArchivesByCategoriesRows);
+				$halaman = ceil($numRows / 3);
+
+				$indeks = 1;
+				foreach($this->ArchivesByCategoriesRows as $row)
+				{
+					if ($indeks == 1 || $indeks % $halaman == 1)						
+					{
+						if ($indeks > 1)
+							echo '</ul></div>';
+
+						echo '<div class="col-md-3 top-archives">
+							<ul>';
+						$indeks = 1;
+					}
+
+					echo '<li><a href="/index/magazine/id/' . $row->id . '">' . $row->keterangan . ' (' . $row->jumlah . ')</a></li>';
+
+					$indeks++;
+				}
+				echo '</ul></div>';
+				?>
+				<div class="clearfix"></div>
+		  </div>
+		  <? /*<div class="archives-top">
+				<div class="col-md-3 top-archives">
+					<h3>BY TAGS:</h3>
+				</div>
+				<div class="col-md-3 top-archives">
+					<ul>
+					<li><a href="single.html"> Omnis</a></li>
+					<li><a href="single.html">Unde </a></li>
+					<li><a href="single.html">Odio</a></li>
+					<li><a href="single.html">Ratione</a></li>
+				</div>
+				<div class="col-md-3 top-archives">
+					<ul>
+					<li><a href="single.html">Ratione</a></li>
+					<li><a href="single.html"> Mistaken</a></li>
+					<li><a href="single.html">Except</a></li>
+					<li><a href="single.html">Omnis</a></li>
+				</div>
+				<div class="col-md-3 top-archives">
+					<ul>
+					<li><a href="single.html">Mistaken</a></li>
+					<li><a href="single.html">Omnis</a></li>
+					<li><a href="single.html">Except</a></li>
+					
+				</div>
+				<div class="clearfix"></div>
+		  </div>*/?>
+		</div>
+		<!---->
+	</div>
+	
+	<i class="line"> </i>
+	<i class="line-in"> </i>

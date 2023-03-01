@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose_facebox").validate();
+		$("table")
+			.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']});
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Tambah Image</h1>
+</div>
+<div class="clear"></div>
+<form id="compose_facebox" name="compose_facebox" method="post" action="/admin/evaluasi/add-file" enctype="multipart/form-data">
+	<div class="tabular">
+		<table>
+			<thead>
+				 <tr>
+					<th>Jenis</th>
+					<th>Judul</th>
+					<th>File</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?
+				for($i=1; $i<=5; $i++)
+				{
+					echo '<tr>';
+					echo '<td><select id="jenis' . $i . '" name="jenis' . $i . '">';
+					echo '<option value="">Pilih Data...</option>';
+					$arrJenis = array(0 => 'File Internal', 1 => 'File Publik', 2 => 'File Cover');
+					foreach($arrJenis as $key => $value) 
+					{ 
+						echo '<option value="' . $key . '">' . $value . '</option>';	
+					} 
+					echo '</select></td>';
+					echo '<td><input type="text" class="" id="judul' . $i . '" name="judul' . $i . '" value=""/></td>';
+					echo '<td><input type="file" id="file' . $i . '" autocomplete="disable" name="file' . $i . '"/></td>';
+					echo '</tr>';
+				}
+				?>
+			</table>
+		</table>
+	    
+		<p class="savecancel">
+			<input type="hidden" id="id" name="id" value="<?=$this->id;?>">
+			<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<a href="#" onclick="$(document).trigger('close.facebox');" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

@@ -1,0 +1,47 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+
+		$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Edit Konten Statis</h1>
+	<div class="header_nav_links"><a href="/admin/konten-statis/index">Back to Daftar Konten Statis</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input readonly type="text" class="required" id="judul" name="judul" value="<?=$this->row->judul;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="konten">Konten Statis :</label>
+			<textarea class="required" id="konten" name="konten" wrap="hard" rows="6" cols="60"><?=$this->row->konten;?></textarea> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel">
+			<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<a href="/admin/konten-statis/index" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>
+<script type="text/javascript" src="/cxedit0r_diparlin/ckeditor.js"></script>
+<script type="text/javascript">
+	CKEDITOR.replace( 'konten' ,{
+			filebrowserBrowseUrl: '/cxedit0r_diparlin/kcfinder/browse.php?type=files',
+			filebrowserImageBrowseUrl: '/cxedit0r_diparlin/kcfinder/browse.php?type=images',
+			filebrowserUploadUrl: '/cxedit0r_diparlin/kcfinder/upload.php?type=files',
+			filebrowserImageUploadUrl: '/cxedit0r_diparlin/kcfinder/upload.php?type=images'
+		});
+</script>

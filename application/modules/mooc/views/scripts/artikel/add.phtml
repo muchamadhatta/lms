@@ -1,0 +1,85 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-5:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	});
+
+function selectFields(id_subtipe_artikel, subtipe_artikel, id_tipe_artikel, tipe_artikel) 
+{
+	$('#id_subtipe_artikel').val(id_subtipe_artikel);
+	$('#subtipe_artikel').val(subtipe_artikel);	
+	$('#id_tipe_artikel').val(id_tipe_artikel);	
+	$('#tipe_artikel').val(tipe_artikel);	
+	$.facebox.close();
+}
+function ClearFields() 
+{
+	document.getElementById("id_subtipe_artikel").value = "";
+	document.getElementById("subtipe_artikel").value = "";
+	document.getElementById("id_tipe_artikel").value = "";
+	document.getElementById("tipe_artikel").value = "";
+}
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Tambah Artikel</h1>
+	<div class="header_nav_links"><a href="/admin/artikel/index">Back to Daftar Artikel</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="tanggal">Tanggal :</label>
+			<input readonly type="text" class="datepicker required" id="tanggal" name="tanggal" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input type="text" class="required" id="judul" name="judul" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="konten">Konten :</label>
+			<textarea class="required" id="konten" name="konten" wrap="soft" rows="10" cols="80" ></textarea> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="tag">Kata Kunci :</label>
+			<textarea class="required" id="tag" name="tag" wrap="soft" rows="6" cols="60" style="overflow: hidden;"></textarea> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="id_subtipe_artikel">Subtipe Artikel :</label>
+			<input readonly class="" type="text" id="subtipe_artikel" autocomplete="disable" name="subtipe_artikel" value=""/>
+			<input class="required" type="hidden" id="id_subtipe_artikel" autocomplete="disable" name="id_subtipe_artikel" value=""/>
+			<a href="/admin/artikel/search-subtipe-artikel" class="UIbutton-small" rel="facebox">...</a> 
+			<input type="button" onclick="ClearFields();" value="Clear"> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="id_tipe_artikel">Tipe Artikel :</label>
+			<input readonly class="" type="text" id="tipe_artikel" autocomplete="disable" name="tipe_artikel" value=""/>
+			<input class="required" type="hidden" id="id_tipe_artikel" autocomplete="disable" name="id_tipe_artikel" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="reporter">Reporter :</label>
+			<input type="text" class="required" id="reporter" name="reporter" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="penulis">Penulis :</label>
+			<input type="text" class="required" id="penulis" name="penulis" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="editor">Editor :</label>
+			<input type="text" class="required" id="editor" name="editor" value=""/> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/artikel/index" class="UIbutton-small">Kembali</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>
+<script type="text/javascript" src="/cxedit0r_diparlin/ckeditor.js"></script>
+<script type="text/javascript">
+	CKEDITOR.replace( 'konten' ,{
+			filebrowserBrowseUrl: '/cxedit0r_diparlin/kcfinder/browse.php?type=files',
+			filebrowserImageBrowseUrl: '/cxedit0r_diparlin/kcfinder/browse.php?type=images',
+			filebrowserUploadUrl: '/cxedit0r_diparlin/kcfinder/upload.php?type=files',
+			filebrowserImageUploadUrl: '/cxedit0r_diparlin/kcfinder/upload.php?type=images'
+		});
+</script>

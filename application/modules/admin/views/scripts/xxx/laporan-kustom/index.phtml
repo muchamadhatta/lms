@@ -1,0 +1,58 @@
+<script type="text/javascript">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Laporan Kustom</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/laporan-kustom/add" class="UIlink-button small right">Tambah Laporan Kustom</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br/>
+<? if (count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table class="tablesorter">
+		 <thead>
+			 <tr>
+				<th>No.</th>
+				<th>Judul</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+		$indeks = 1;
+			foreach($this->rows as $row)
+			{
+				echo '<tr>';
+				echo '<td align="center" width="40">'. $indeks .'.</td>';
+				echo '<td>'. $row->judul .'</td>';
+				echo '<td align="center">';
+				echo '<a href="/admin/laporan-kustom/view/id/'. $row->id .'" rel="facebox">VIEW</a>';
+				echo '&nbsp;|&nbsp;<a href="/admin/laporan-kustom/export/id/'. $row->id .'" >EXPORT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/laporan-kustom/edit/id/'. $row->id .'">EDIT</a>';
+					echo '&nbsp;|&nbsp;<a href="/admin/laporan-kustom/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+					
+				}
+				echo '</td>';
+				echo '</tr>';
+
+				$indeks++;
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+} ?>

@@ -1,0 +1,54 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Pesertanonasn</h1>
+	<div class="header_nav_links"><a href="/admin/pesertanonasn/index">Back to Daftar Pesertanonasn</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama">Peserta Non ASN</label>
+			<textarea id="nama" class="event-message required" wrap="soft" rows="6" cols="60" name="nama" style="overflow: hidden; display: block;"><?=$this->row->nama;?></textarea>
+		</p>
+		<p>
+			<label class="left" for="tempat_lahir">Tempat Lahir</label>
+			<textarea id="tempat_lahir" class="event-message required" wrap="soft" rows="6" cols="60" name="tempat_lahir" style="overflow: hidden; display: block;"><?=$this->row->tempat_lahir;?></textarea>
+		</p>
+		<p>
+			<label class="left" for="tanggal">Tanggal Lahir :</label>
+			<input readonly type="text" class="datepicker required" id="tanggal_lahir" name="tanggal_lahir" value="<?=$this->FormatDate($this->row->tanggal_lahir);?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="agama">Agama</label>
+			<textarea id="agama" class="event-message required" wrap="soft" rows="6" cols="60" name="agama" style="overflow: hidden; display: block;"><?=$this->row->agama;?></textarea>
+		</p>
+		<p>
+			<label class="left" for="status_perkawinan">Status Perkawinan</label>
+			<textarea id="status_perkawinan" class="event-message required" wrap="soft" rows="6" cols="60" name="status_perkawinan" style="overflow: hidden; display: block;"><?=$this->row->status_perkawinan;?></textarea>
+		</p>
+		<p>
+			<label class="left" for="pekerjaan">Pekerjaan</label>
+			<textarea id="pekerjaan" class="event-message required" wrap="soft" rows="6" cols="60" name="pekerjaan" style="overflow: hidden; display: block;"><?=$this->row->pekerjaan;?></textarea>
+		</p>
+		<p>
+			<label class="left" for="kewarganegaraan">Kewarganegaraan</label>
+			<textarea id="kewarganegaraan" class="event-message required" wrap="soft" rows="6" cols="60" name="kewarganegaraan" style="overflow: hidden; display: block;"><?=$this->row->kewarganegaraan;?></textarea>
+		</p>
+		
+		<input type="hidden" id="id" name="id" value="<?=$this->row->id;?>">
+	    
+		<p class="savecancel">
+			<?
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			?>
+			<a href="/admin/pesertanonasn/index" class="UIbutton-small">Batal</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

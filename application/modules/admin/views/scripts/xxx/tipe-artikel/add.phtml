@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Tambah Tipe Artikel</h1>
+	<div class="header_nav_links"><a href="/admin/tipe-artikel/index">Back to Daftar Tipe Artikel</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="tipe_artikel">Tipe Artikel :</label>
+			<input type="text" class="required" id="tipe_artikel" name="tipe_artikel" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="konten">Deskripsi :</label>
+			<textarea class="required" id="konten" name="konten" wrap="soft" rows="6" cols="60"></textarea> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/tipe-artikel/index" class="UIbutton-small">Kembali</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

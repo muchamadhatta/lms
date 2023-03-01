@@ -1,0 +1,36 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit FAQ</h1>
+	<div class="header_nav_links"><a href="/admin/faq/index">Back to Daftar FAQ</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="pertanyaan">Pertanyaan</label>
+			<textarea id="pertanyaan" class="event-message" wrap="soft" rows="6" cols="60" name="pertanyaan" style="overflow: hidden; display: block;"><?=$this->row->pertanyaan;?></textarea>
+		</p>
+		<p>
+			<label class="left" for="jawaban">Jawaban</label>
+			<textarea id="jawaban" class="event-message" wrap="soft" rows="6" cols="60" name="jawaban" style="overflow: hidden; display: block;"><?=$this->row->jawaban;?></textarea>
+		</p>
+		
+		<input type="hidden" id="id" name="id" value="<?=$this->row->id;?>">
+	    
+		<p class="savecancel">
+			<?
+			if ($this->getRole() == "admin" || $this->getRole() == "super" || $this->getRole() == "user") {
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			}
+			?>
+			<a href="/admin/faq/index" class="UIbutton-small">Batal</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

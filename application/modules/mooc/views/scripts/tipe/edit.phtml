@@ -1,0 +1,32 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Tipe</h1>
+	<div class="header_nav_links"><a href="/admin/tipe/index">Back to Daftar Tipe</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="tipe">Tipe</label>
+			<textarea id="tipe" class="event-message required" wrap="soft" rows="6" cols="60" name="tipe" style="overflow: hidden; display: block;"><?=$this->row->tipe;?></textarea>
+		</p>
+		
+		<input type="hidden" id="id" name="id" value="<?=$this->row->id;?>">
+	    
+		<p class="savecancel">
+			<?
+			//if ($this->getRole() == "admin" || $this->getRole() == "super" || $this->getRole() == "user") {
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			//}
+			?>
+			<a href="/admin/tipe/index" class="UIbutton-small">Batal</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

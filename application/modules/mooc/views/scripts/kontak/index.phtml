@@ -1,0 +1,53 @@
+<script type="text/javascript">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?> Daftar Kontak</h1>
+</div>
+<div class="clear"></div>
+<br/>
+<? if(count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table id="myTable" class="tablesorter" style="margin:auto;" width="100%">
+		 <thead>
+			 <tr>
+				<th>Nama</th>
+				<th>Email</th>
+				<th>Judul</th>
+				<th>Pesan</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			foreach($this->rows as $row)
+			{
+				echo '<tr>';
+				echo '<td>'. $row->nama .'</td>';
+				echo '<td>'. $row->email .'</td>';
+				echo '<td>'. $row->judul .'</td>';
+				echo '<td>'. strip_tags($row->pesan) .'</td>';
+				echo '<td align="center"><a href="/admin/kontak/edit/id/'. $row->id .'">EDIT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/kontak/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				}
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+} ?>

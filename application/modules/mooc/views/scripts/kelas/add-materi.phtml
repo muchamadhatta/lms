@@ -1,0 +1,109 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+<script src="<?= $this->url_statik; ?>/js/tinymce/tinymce.min.js"></script>
+
+<style>
+	.ck-editor__editable {
+		min-height: 200px;
+	}
+</style>
+<style>
+	#myTable {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	#myTable td,
+	#customers th {
+		font-size: 1.0em;
+		border: 1px solid #98bf21;
+		padding: 3px 7px 2px 7px;
+		vertical-align: top;
+	}
+
+	#myTable th {
+		font-size: 1.0em;
+		text-align: center;
+		padding-top: 5px;
+		padding-bottom: 4px;
+		background-color: #A7C942;
+		color: #fff;
+	}
+
+	#myTable tr.alt td {
+		color: #000;
+		background-color: #EAF2D3;
+	}
+</style>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?= $this->avatar; ?>Tambah Materi</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/edit-silabus/id/<?= $this->data->id_kelas_silabus; ?>">Back to Daftar Materi</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_silabus">Nama Silabus</label>
+			<textarea id="nama_silabus" class="event-message" readonly wrap="soft" rows="2" cols="60" name="nama_silabus" style="overflow: hidden; display: block;"><?= $this->nama_silabus; ?></textarea>
+		</p>
+
+		<p>
+			<label class="left" for="nama_materi">Nama Materi</label>
+			<textarea id="nama_materi" class="event-message" wrap="soft" rows="2" cols="60" name="nama_materi" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p>
+			<label class="left" for="deksripsi_materi">Deskripsi Materi</label>
+			<textarea id="deksripsi" class="event-message" wrap="soft" rows="6" cols="60" name="deskripsi_materi" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p><label>Isi Materi</label></p>
+		<div class="col-md-12 border-bottom p-0">
+			<textarea id="isi_materi" name="isi_materi" placeholder="Tambah disini"></textarea>
+		</div>
+
+		<script>
+			tinymce.init({
+				selector: '#isi_materi',
+				plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image code link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime lists advlist textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+				toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link image | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+				// setup: function(editor) {
+				// 	editor.on('init', function(e) {
+				// 		editor.setContent(<?= json_encode($this->isi_materi); ?>);
+				// 	});
+				// }
+			});
+		</script>
+		<p>
+			<label class="left" for="file">File :</label>
+			<!-- <input type="file" id="file" autocomplete="disable" name="file"/> -->
+
+		<table id="myTable">
+			<tr>
+				<th>No.</th>
+				<th>Materi</th>
+				<!-- <th>Caption</th> -->
+				<th>&nbsp;</th>
+			</tr>
+
+			<?
+
+			for ($i = 1; $i <= 10; $i++) {
+				echo '<tr>';
+				echo '<td>' . $i . '.</td>';
+				echo '<td><input type="file" id="file_name' . $i . '" name="file_name' . $i . '"></td>';
+				echo '</tr>';
+			}
+			?>
+
+		</table>
+		</p>
+
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/kelas/edit-silabus/id/<?= $this->id; ?>" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

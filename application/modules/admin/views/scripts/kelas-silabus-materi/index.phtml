@@ -1,0 +1,58 @@
+<script id="js">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Silabus Materi</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/kelas-silabus-materi/add" class="UIlink-button small right">Tambah Silabus Materi</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table class="tablesorter">
+		 <thead>
+			 <tr>
+			 	<th width="5px">No.</th>
+				<th>Nama Materi</th>
+				<th>Deskripsi Materi</th>
+				<th>Isi Materi (Image)</th>
+				<th>Isi Materi (PDF)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$index = 1;
+			foreach($this->rows as $row) {
+				echo '<tr>';
+				echo '<td align="center">'. $index++ .'.</td>';
+				echo '<td align="center">'.$row->nama_materi.'</td>';
+				echo '<td align="center">'.$row->deskripsi_materi.'</td>';
+				echo '<td align="center"><img src="https://berkas.dpr.go.id/mooc/gambarmateri/'.$row->gambar_materi_uri.'" width="80px"></td>';
+				echo '<td align="center"><img src="https://berkas.dpr.go.id/mooc/filemateri/'.$row->document_materi_uri.'" width="80px"></td>';
+				echo '<td align="center"><a href="/admin/kelas-silabus-materi/edit/id/'. $row->id .'">EDIT</a>';
+				// if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/kelas-silabus-materi/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				// }
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+}
+?>

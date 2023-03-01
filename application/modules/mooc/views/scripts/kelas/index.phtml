@@ -1,0 +1,60 @@
+<script id="js">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Kelas</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/kelas/add" class="UIlink-button small right">Tambah Kelas</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table class="tablesorter">
+		 <thead>
+			 <tr>
+				<th>No.</th>
+				<th>Nama Kelas</th>
+				<th>Jenis Kelas</th>
+				<th>Thumbnail</th>
+				<th>Aksi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$index = 1;
+			foreach($this->rows as $row)
+			{
+				
+				echo '<tr>';
+				echo '<td align="center">'. $index++ .'.</td>';
+				echo '<td>'. $row->nama_kelas .'</td>';
+				echo '<td align="center">'. $row->jenis_kelas.'</td>';
+				echo '<td align="center"><img src="https://berkas.dpr.go.id/mooc/thumbkelas/'.$row->thumbnail_uri.'" width="80px"></td>';
+				echo '<td align="center"><a href="/admin/kelas/edit/id/'. $row->id .'">EDIT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') 
+				{
+					echo '&nbsp;|&nbsp;<a href="/admin/kelas/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				}
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+}
+?>

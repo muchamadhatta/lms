@@ -1,0 +1,47 @@
+		<!---->
+		<div class="magazine">
+			<h1><?=$this->row->subtipe_artikel;?></h1>
+			<h6><?=$this->row->konten;?></h6>
+
+			<? 
+			$indeks = 1;
+			foreach($this->rows as $row)
+			{
+				if ($indeks == 1 || $indeks % 4 == 0)
+				{
+					if ($indeks > 1)
+					{
+						echo '<div class="clearfix"></div>
+						</div>';
+					}
+
+					echo '<div class="magazine-top">';
+
+					$indeks = 1;
+				}
+				$image = ($row->file_name != null) ? $this->url_berkas . '/artikel/' . $row->file_name : $this->url_berkas . '/images/ci6.png';
+
+				echo '<div class="col-md-4 top-magazine">
+					<a href="/index/single/id/' . $row->id . '" ><img class="img-responsive chain" src="' . $image . '" alt="name">
+						<div class="rotate">
+							<i> </i>	
+						</div>	
+					</a>
+					<div class=" magazine-grid">
+						<h3><a href="/index/single/id/' . $row->id . '">' . $row->judul . '</a></h3>
+						<p>' . $this->LimitWord(strip_tags($row->konten), 25) . '</p>
+					</div>
+				</div>';
+
+				$indeks++;
+			}
+
+				echo '<div class="clearfix"></div>
+			</div>';
+			?>
+			
+		</div>
+		</div>	
+	<i class="line"> </i>
+	<i class="line-in"> </i>
+	<i class="line-in  line-at"> </i>

@@ -1,0 +1,49 @@
+<script type="text/javascript">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Tipe Artikel</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/tipe-artikel/add" class="UIlink-button small right">Tambah Tipe Artikel</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br/>
+<? if(count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table id="myTable" class="tablesorter" style="margin:auto;" width="100%">
+		 <thead>
+			 <tr>
+				<th>Tipe Artikel</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			foreach($this->rows as $row)
+			{
+				echo '<tr>';
+				echo '<td>'. $row->tipe_artikel .'</td>';
+				echo '<td align="center"><a href="/admin/tipe-artikel/edit/id/'. $row->id .'">EDIT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/tipe-artikel/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				}
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+} ?>

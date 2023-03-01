@@ -1,0 +1,39 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Tambah Subtipe Artikel</h1>
+	<div class="header_nav_links"><a href="/admin/subtipe-artikel/index">Back to Daftar Subtipe Artikel</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="subtipe_artikel">Subtipe Artikel :</label>
+			<input type="text" class="required" id="subtipe_artikel" name="subtipe_artikel" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="tipe_artikel">Tipe Artikel :</label>
+			<select class="required" id="id_tipe_artikel" name="id_tipe_artikel">
+				<option value="">Pilih Data...</option>
+				<?
+				foreach($this->TipeArtikelRows as $row)
+				{
+					echo '<option value="' . $row->id . '">' . $row->tipe_artikel . '</option>';
+				}
+				?>
+			</select> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="konten">Deskripsi :</label>
+			<textarea class="required" id="konten" name="konten" wrap="soft" rows="6" cols="60"></textarea> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/subtipe-artikel/index" class="UIbutton-small">Kembali</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

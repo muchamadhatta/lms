@@ -1,0 +1,56 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Pelatihan</h1>
+	<div class="header_nav_links"><a href="/admin/pelatihan/index">Back to Daftar Pelatihan</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_pelatihan">Nama Pelatihan</label>
+			<input id="nama_pelatihan" class="event-message" wrap="soft" rows="6" cols="60" name="nama_pelatihan" style="overflow: hidden; display: block;" value="<?=$this->row->nama_pelatihan;?>"></input>
+		</p>
+		<p>
+			<label class="left" for="deskripsi">Deskripsi</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="6" cols="60" name="deskripsi" style="overflow: hidden; display: block;"><?=$this->row->deskripsi;?></textarea>
+		</p>
+		<p>
+			<label>Tipe Pelatihan</label>
+			<select class="required" id="tipe_pelatihan" name="tipe_pelatihan">
+				<option value="" disabled>Pilih Tipe...</option>
+				<option value="classical" <?= ($this->row->tipe_pelatihan == 'classical') ? ' selected' : ''; ?>>Classical</option>
+				<option value="nonclassical" <?= ($this->row->tipe_pelatihan == 'nonclassical') ? ' selected' : ''; ?>>Non Classical</option>
+				<option value="blended" <?= ($this->row->tipe_pelatihan == 'blended') ? ' selected' : ''; ?>>Blended</option>
+			</select>  <font color="red">*</font></p>
+		<p>
+		<p>
+			<label class="left" for="nama_pelatihan">Sampul Pelatihan</label> 
+			<?
+				if ($this->row->sampul_pelatihan != "") {
+					echo '<img src="https://berkas.dpr.go.id/mooc/thumbkelas/' . $this->row->sampul_pelatihan . '" height="200" />';
+					echo '&nbsp; &nbsp;<a href="/admin/pelatihan/delete-files/id/' . $this->row->id . '  ">Hapus</a>';
+				} else {
+					echo '<input type="file" id="file_name" autocomplete="disable" name="file_name"/>';
+				}
+			?>
+		</P>
+		
+		<input type="hidden" id="id" name="id" value="<?=$this->row->id;?>">
+	    
+		<p class="savecancel">
+			<?
+			//if ($this->getRole() == "admin" || $this->getRole() == "super" || $this->getRole() == "user") {
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			//}
+			?>
+			<a href="/admin/pelatihan/index" class="UIbutton-small">Batal</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

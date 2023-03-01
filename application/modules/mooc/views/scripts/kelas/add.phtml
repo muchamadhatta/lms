@@ -1,0 +1,63 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<script src="<?= $this->url_statik; ?>/js/tinymce/tinymce.min.js"></script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Kelas</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/index">Back to Daftar Kelas</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_kelas">Nama Kelas</label>
+			<textarea id="nama_kelas" class="event-message" wrap="soft" rows="6" cols="60" name="nama_kelas" style="overflow: hidden; display: block;"></textarea>
+		</p>
+
+		<p>
+			<label class="left" for="deskripsi">Deskripsi Materi</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="6" cols="60" name="deskripsi" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p><label>Jenis Kelas</label><select class="required" id="jenis_kelas" name="jenis_kelas">
+		<option value="">Pilih Data...</option>
+		<?
+		$arrJenisKelas = array('1' => 'Introduction', '2' => 'Beginner', '3' => 'Intermediate', '4' => 'Advance');
+		foreach($arrJenisKelas as $key => $value)
+		{
+			$selected = ($this->row->jenis_kelas == $key) ? ' selected' : '';
+			echo '<option value="' . $value . '"' . $selected . '>' . $value . '</option>';
+		}
+		?>
+		</select>  <font color="red">*</font></p>
+
+		<p>
+			<label class="left" for="nama_kelas">Thumbnail</label> 
+			<input type="file" accept="image/*" id="file_name" name="file_name">
+		</P>
+		<p><label>Tentang Kelas</label></p>
+		<div class="col-md-12 border-bottom p-0">
+			<textarea id="tentang" name="tentang" placeholder="Tambah disini"></textarea>
+		</div>
+
+		<script>
+			tinymce.init({
+				selector: '#tentang',
+				plugins: 'print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image code link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime lists advlist textcolor wordcount imagetools contextmenu colorpicker textpattern help',
+				toolbar: 'formatselect | bold italic strikethrough forecolor backcolor | link image | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+				// setup: function(editor) {
+				// 	editor.on('init', function(e) {
+				// 		editor.setContent(<?= json_encode($this->row->tentang); ?>);
+				// 	});
+				// }
+			});
+		</script>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/kelas/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

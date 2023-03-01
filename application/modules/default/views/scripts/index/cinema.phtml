@@ -1,0 +1,37 @@
+		<!---->
+		<div class="cinema">
+			<h1><?=$this->FormatDate($this->rows[0]->tanggal, '%B %Y');?></h1>
+			<?
+			$indeks = 1;
+			foreach($this->rows as $row)
+			{
+				if ($indeks == 1 || $indeks % 4 == 0)
+				{
+					if ($indeks > 1)
+						echo '<div class="clearfix"></div>
+						</div>';
+
+					echo '<div class="cinema-top">';
+
+					$indeks = 1;
+				}
+				
+				$imagenya = ($row->file_name) ? '/artikel/'.$row->file_name : '/images/ci6.png';
+				
+				echo '<div class="col-md-4 top-cinema">
+						<a href="/index/single/id/' . $row->id . '"><img class="img-responsive" src="' . $this->url_berkas . $imagenya . '" alt="name"></a>
+					<div class="caption">
+						<h3 class="cinema"><a href="singlepage.html">' . $row->subtipe_artikel . ' </a> </h3>	
+						<p>' . $row->judul . '</p>					
+					</div>
+				</div>';
+
+				$indeks++;
+			}
+				echo '<div class="clearfix"></div>
+			</div>';
+			?>		
+		</div>	
+	<i class="line"> </i>
+	<i class="line-in"> </i>
+	<i class="line-in  line-on"> </i>

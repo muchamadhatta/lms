@@ -1,0 +1,144 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+
+		$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Edit Artikel</h1>
+	<div class="header_nav_links"><a href="/admin/artikel/index">Back to Daftar Artikel</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="tanggal">Tanggal :</label>
+			<input readonly type="text" class="datepicker required" id="tanggal" name="tanggal" value="<?=$this->FormatDate($this->row->tanggal);?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input type="text" class="required" id="judul" name="judul" value="<?=$this->row->judul;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="konten">Konten :</label>
+			<textarea class="required" id="konten" name="konten" wrap="soft" rows="10" cols="80" style=""><?=$this->row->konten;?></textarea> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="tag">Kata Kunci :</label>
+			<textarea class="required" id="tag" name="tag" wrap="soft" rows="6" cols="60" style="overflow: hidden;"><?=$this->row->tag;?></textarea> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="id_subtipe_artikel">Subtipe Artikel :</label>
+			<input readonly class="" type="text" id="subtipe_artikel" autocomplete="disable" name="subtipe_artikel" value="<?=$this->row->subtipe_artikel;?>"/>
+			<input class="required" type="hidden" id="id_subtipe_artikel" autocomplete="disable" name="id_subtipe_artikel" value="<?=$this->row->id_subtipe_artikel;?>"/>
+			<a href="/admin/artikel/search-subtipe-artikel" class="UIbutton-small" rel="facebox">...</a> 
+			<input type="button" onclick="ClearFields();" value="Clear"> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="id_tipe_artikel">Tipe Artikel :</label>
+			<input readonly class="" type="text" id="tipe_artikel" autocomplete="disable" name="tipe_artikel" value="<?=$this->row->tipe_artikel;?>"/>
+			<input class="required" type="hidden" id="id_tipe_artikel" autocomplete="disable" name="id_tipe_artikel" value="<?=$this->row->id_tipe_artikel;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="reporter">Reporter :</label>
+			<input type="text" class="required" id="reporter" name="reporter" value="<?=$this->row->reporter;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="penulis">Penulis :</label>
+			<input type="text" class="required" id="penulis" name="penulis" value="<?=$this->row->penulis;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="editor">Editor :</label>
+			<input type="text" class="required" id="editor" name="editor" value="<?=$this->row->editor;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="status_publikasi">Status Publikasi :</label>
+			<select id="status_publikasi" name="status_publikasi" class="required"/>
+				<option value="">-- Pilih Data --</option>
+				<?
+				$arrStatusPublikasi = array('0' => 'Off', '1' => 'On');
+				foreach($arrStatusPublikasi as $key => $value)
+				{
+					$selected = ($this->row->status_publikasi == $key) ? ' selected' : '';
+					echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+				}
+				?>
+			</select> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="status_artikel_utama">Status Topik Terhangat :</label>
+			<select id="status_artikel_utama" name="status_artikel_utama" class="required"/>
+				<option value="">-- Pilih Data --</option>
+				<?
+				$arrStatusPublikasi = array('0' => 'Off', '1' => 'On');
+				foreach($arrStatusPublikasi as $key => $value)
+				{
+					$selected = ($this->row->status_artikel_utama == $key) ? ' selected' : '';
+					echo '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+				}
+				?>
+			</select> <font color="red">*</font>
+		</p>
+
+		<br>
+	    
+		<p class="savecancel">
+			<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<a href="/admin/artikel/add-file/id/<?=$this->row->id;?>" class="UIbutton-small" rel="facebox">Tambah File</a>
+			<a href="/admin/artikel/index" class="UIbutton-small">Kembali</a>
+		</p>
+		<br>
+		
+		<? if (count($this->ArtikelFileRows) > 0) { ?>
+			<?=$this->pager;?>
+			<table id="myTable" class="tablesorter" style="margin:auto;" width="100%">
+				 <thead>
+					 <tr>
+						<th>Jenis</th>
+						<th>Judul</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$arrJenis = array(0 => 'Image', 1 => 'File');
+					foreach($this->ArtikelFileRows as $row)
+					{						
+						echo '<tr>';
+						echo '<td align="center">'. $arrJenis[$row->jenis] .'</td>';
+						echo '<td>'. strip_tags($row->judul) .'</td>';
+						echo '<td align="center">';
+						echo '<a href="/admin/artikel/edit-file/id/'. $row->id .'/id_artikel/' . $this->row->id . '" rel="facebox">EDIT</a>';
+						if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+							echo '&nbsp;|&nbsp;<a href="/admin/artikel/delete-file/id/'. $row->id .'/id_artikel/' . $this->row->id . '" onclick="return confirmDelete();">DELETE</a>';
+						}
+						if ($row->file_name)
+							echo '&nbsp;|&nbsp;<a href="' . $this->url_berkas . '/artikel/' . $row->file_name . '" target="_blank">DOWNLOAD</a>';
+						echo '</td>';
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		<? } ?>
+	</div>
+</form>
+<div style="clear:both"></div>
+<script type="text/javascript" src="/cxedit0r_diparlin/ckeditor.js"></script>
+<script type="text/javascript">
+	CKEDITOR.replace( 'konten' ,{
+			filebrowserBrowseUrl: '/cxedit0r_diparlin/kcfinder/browse.php?type=files',
+			filebrowserImageBrowseUrl: '/cxedit0r_diparlin/kcfinder/browse.php?type=images',
+			filebrowserUploadUrl: '/cxedit0r_diparlin/kcfinder/upload.php?type=files',
+			filebrowserImageUploadUrl: '/cxedit0r_diparlin/kcfinder/upload.php?type=images'
+		});
+</script>

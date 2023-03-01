@@ -1,0 +1,56 @@
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 4;
+
+	$(document).ready(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-100:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Tipe</h1>
+	<div class="header_nav_links"><a href="/admin/tipe/index">Back to Daftar Tipe</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="tipe">Tipe</label>
+			<textarea id="tipe" class="event-message" wrap="soft" rows="6" cols="60" name="tipe" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p>
+			<label class="left" for="tanggal">Tanggal :</label>
+			<input readonly type="text" class="datepicker required" id="tanggal" name="tanggal" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input type="text" class="required" id="judul" name="judul" value=""/> <font color="red">*</font>
+		</p>
+		<p><label>Jenis Kelas</label><select class="required" id="jenis_kelas" name="jenis_kelas">
+		<option value="">Pilih Data...</option>
+		<?
+		/*$arrJenisKelas = array('1' => 'Introduction', '2' => 'Beginner', '3' => 'Intermediate', '4' => 'Advance');
+		foreach($arrJenisKelas as $key => $value)
+		{
+			$selected = ($this->row->jenis_kelas == $key) ? ' selected' : '';
+			echo '<option value="' . $value . '"' . $selected . '>' . $value . '</option>';
+		}*/
+		foreach($this->rows as $row)
+		{
+			$selected = ($this->row->jenis_kelas == $row->id) ? ' selected' : '';
+			echo '<option value="' . $row->id . '"' . $selected . '>' . $row->tipe . '</option>';
+		}
+		?>
+		</select>  <font color="red">*</font></p>
+		<p>
+			<label class="left" for="tunjangan_kinerja">Tunj. Kinerja :</label>
+			Bruto: Rp. <input type="text" class="currency required" id="tukin_bruto" name="tukin_bruto" value="0" onfocus="ElementCurrencyOnBlur(this); this.select();" onblur="ElementCurrencyOnBlur(this);"/><font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/tipe/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

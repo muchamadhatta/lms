@@ -1,0 +1,88 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	});
+	$(function() {
+		$("#tgl_awal").datepicker({
+			yearRange: "-1:+0",
+			changeYear: "true",
+			changeMonth: "true",
+			dateFormat: "dd-mm-yy"
+		});
+		$("#tgl_akhir").datepicker({
+			yearRange: "-1:+0",
+			changeYear: "true",
+			changeMonth: "true",
+			dateFormat: "dd-mm-yy"
+		});
+	});
+</script>
+<script>
+	function selectFields1(id, id, nama_kelas) {
+		$('#id_kelas').val(id);
+		// $('#nit_tsp').val(id);
+		$('#nama_kelas').val(nama_kelas);
+		$.facebox.close();
+	}
+
+	function ClearFields1() {
+		document.getElementById("id_kelas").value = "";
+		// document.getElementById("nit_tsp").value = "";
+		document.getElementById("nama_kelas").value = "";
+	}
+
+	function selectFields2(id, id, nama_pengajar) {
+		$('#id_pengajar').val(id);
+		// $('#nit_tsp').val(id);
+		$('#nama_pengajar').val(nama_pengajar);
+		$.facebox.close();
+	}
+
+	function ClearFields2() {
+		document.getElementById("id_pengajar").value = "";
+		// document.getElementById("nit_tsp").value = "";
+		document.getElementById("nama_pengajar").value = "";
+	}
+</script>
+
+<script src="<?= $this->url_statik; ?>/js/tinymce/tinymce.min.js"></script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?= $this->avatar; ?>Tambah Pengajar</h1>
+	<div class="header_nav_links"><a href="/admin/pengajar/index">Back to Daftar Pengajar</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_penagajar">Nama Pengajar</label>
+			<textarea id="nama_pengajar" class="event-message" wrap="soft" rows="2" cols="60" name="nama_pengajar" style="overflow: hidden; display: block;"><?= $this->nama_pengajar; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="identitas_pengajar">NIP/NIK</label>
+			<textarea id="identitas_pengajar" class="event-message" wrap="soft" rows="2" cols="60" name="identitas_pengajar" style="overflow: hidden; display: block;"><?= $this->identitas_pengajar ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="status_asal">Asal Instansi</label>
+			<textarea id="status_asal" class="event-message" wrap="soft" rows="2" cols="60" name="status_asal" style="overflow: hidden; display: block;"><?= $this->status_asal; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="email">Email</label>
+			<textarea id="email" class="event-message" wrap="soft" rows="2" cols="60" name="email" style="overflow: hidden; display: block;"><?= $this->email; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="no_telp">No Telp</label>
+			<textarea id="no_telp" class="event-message" wrap="soft" rows="2" cols="60" name="no_telp" style="overflow: hidden; display: block;"><?= $this->no_telp ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="fotopengajar_uri">Foto Pengajar</label> 
+			<input type="file" accept="image/*" id="file_name" name="file_name">
+		</P>
+
+
+
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/pengajar/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

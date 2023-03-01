@@ -1,0 +1,71 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+
+		$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Edit Setting</h1>
+	<div class="header_nav_links"><a href="/admin/setting/index">Back to Daftar Setting</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">		
+		<p>
+			<label class="left" for="nama">Nama :</label>
+			<input readonly type="text" class="required" id="nama" name="nama" value="<?=$this->row->nama;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="nilai">Nilai :</label>
+			<input type="text" class="required" id="nilai" name="nilai" value="<?=$this->row->nilai;?>"/> <font color="red">*</font>
+		</p>
+
+		<? if (count($this->rows) > 0) { ?>
+			<br>
+			<?=$this->pager;?>
+			<table class="tablesorter">
+				<thead>
+					<tr>
+						<th width="50px">No.</th>
+						<th>Kode Subsetting</th>
+						<th>Nama Subsetting</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$indeks = 1;
+					foreach($this->rows as $row)
+					{
+						echo '<tr>';
+						echo '<td align="center">' . $indeks . '.</td>';
+						echo '<td>'. $row->kode_subsetting .'</td>';
+						echo '<td>'. $row->nama_subsetting .'</td>';
+						echo '</tr>';
+
+						$indeks++;
+					}
+					?>
+				</tbody>
+			</table>
+		<? } ?>
+
+		<br>
+	    
+		<p class="savecancel">
+			<? if ($this->getRole() == 'admin' || $this->getRole() == 'super') { ?>
+				<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<? } ?>
+			<a href="/admin/setting/index" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

@@ -1,0 +1,45 @@
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 4;
+
+	$(document).ready(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-100:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Pelatihan</h1>
+	<div class="header_nav_links"><a href="/admin/pelatihan/index">Back to Daftar Pelatihan</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_pelatihan">Nama Pelatihan</label>
+			<input id="nama_pelatihan" class="event-message" wrap="soft" rows="6" cols="60" name="nama_pelatihan" style="overflow: hidden; display: block;"></input>
+		</p>
+		<p>
+			<label class="left" for="deskripsi">Deskripsi Materi</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="6" cols="60" name="deskripsi" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p>
+			<label>Tipe Pelatihan</label>
+			<select class="required" id="tipe_pelatihan" name="tipe_pelatihan">
+				<option value="" disabled>Pilih Tipe...</option>
+				<option value="classical">Classical</option>
+				<option value="nonclassical">Non Classical</option>
+				<option value="blended">Blended</option>
+			</select>  <font color="red">*</font></p>
+		<p>
+			
+		<p>
+			<label class="left" for="nama_pelatihan">Sampul Pelatihan</label> 
+			<input type="file" accept="image/*" id="file_name" name="file_name">
+		</P>
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/pelatihan/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

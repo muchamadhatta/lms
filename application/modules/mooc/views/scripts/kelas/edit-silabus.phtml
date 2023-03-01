@@ -1,0 +1,78 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+
+		$("table")
+			.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+			.tablesorterPager({container: $(".pager"), 
+								output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+								fixedHeight: true, 
+								removeRows: false, 
+								cssGoto: '.gotoPage' });
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Silabus</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/edit/id/<?=$this->row->id_kelas;?>">Back to Daftar Silabus</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_silabus">Nama Silabus</label>
+			<textarea id="nama_silabus" class="event-message" wrap="soft" rows="6" cols="60" name="nama_silabus" style="overflow: hidden; display: block;"><?=$this->row->nama_silabus;?></textarea>
+		</p>
+	    
+		<p class="savecancel">
+			<input type="hidden" id="id_kelas" name="id_kelas" value="<?=$this->row->id_kelas;?>">
+			<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>
+			<a href="/admin/kelas/add-materi/id/<?=$this->row->id;?>" class="UIbutton-small">Tambah Materi</a>
+			<a href="/admin/kelas/add-materi/id/<?=$this->row->id;?>" class="UIbutton-small">Tambah Quiz</a>
+			<a href="/admin/kelas/edit/id/<?=$this->row->id_kelas;?>" class="UIbutton-small">Batal</a>
+		</p>
+
+		<? if (count($this->rows) > 0) { ?>
+			<?=$this->pager;?>
+
+			<table class="tablesorter">
+				 <thead>
+					 <tr>
+						<th>No.</th>
+						<th>Nama Materi</th>
+						<th>Deskripsi Materi</th>
+						<th>Isi Materi</th>
+						<th>Media</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$index = 1;
+					foreach($this->rows as $row)
+					{
+						echo '<tr>';
+						echo '<td align="center">'. $index++ .'.</td>';
+						echo '<td>'. $row->nama_materi .'</td>';
+						echo '<td align="center">'.$row->deskripsi_materi.'</td>';
+						echo '<td align="left">'.$row->isi_materi.'</td>';
+						echo '<td align="center">'.media.'</td>';
+						echo '<td align="center"><a href="/admin/kelas/edit-materi/id/'. $row->id .'">EDIT</a>';
+						if ($this->getRole() == 'admin' || $this->getRole() == 'super') 
+						{
+							echo '&nbsp;|&nbsp;<a href="/admin/kelas/delete-materi/id/'. $row->id .'/id_kelas_silabus/'. $row->id_kelas_silabus .'" onclick="return confirmDelete();">DELETE</a>';
+						}
+						echo '</td>';
+						echo '</tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		<? } else {
+			echo "<p style='color:red;'>Materi belum ditambahkan!</p>";
+		}
+		?>
+	</div>
+</form>
+<div style="clear:both"></div>

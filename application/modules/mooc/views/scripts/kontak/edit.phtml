@@ -1,0 +1,52 @@
+<script type="text/javascript">
+	$(function() {
+		$("#compose").validate();
+
+		$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>  Edit Kontak</h1>
+	<div class="header_nav_links"><a href="/admin/kontak/index">Back to Daftar Kontak</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama">Nama :</label>
+			<input disabled type="text" class="required" id="nama" name="nama" value="<?=$this->row->nama;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="email">Email :</label>
+			<input disabled type="text" class="required" id="email" name="email" value="<?=$this->row->email;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input disabled type="text" class="required" id="judul" name="judul" value="<?=$this->row->judul;?>"/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="pesan">Pesan :</label>
+			<textarea disabled class="required" id="pesan" name="pesan" wrap="soft" rows="6" cols="60"><?=$this->row->pesan;?></textarea> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="balasan">Balasan :</label>
+			<textarea disabled class="required" id="balasan" name="balasan" wrap="soft" rows="6" cols="60"><?=$this->row->balasan;?></textarea> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel">
+			<? if ($this->row->balasan == null) { ?>
+				<a href="/admin/kontak/reply/id/<?=$this->row->id;?>" class="UIbutton-small" rel="facebox">Reply</a>
+			<? } ?>
+			<a href="/admin/kontak/index" class="UIbutton-small">Kembali</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

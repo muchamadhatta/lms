@@ -1,0 +1,27 @@
+<script type="text/javascript">
+$(function() {
+	$("#compose").validate();
+});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?> Tambah Laporan Kustom</h1>
+	<div class="header_nav_links"><a href="/admin/laporan-kustom/index">Back to Daftar Laporan Kustom</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="judul">Judul :</label>
+			<input type="text" class="required" id="judul" name="judul" value=""/> <font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="sql">SQL :</label>
+			<textarea class="required" id="sql" wrap="soft" rows="30" cols="90" name="sql" style="overflow: hidden;"></textarea> <font color="red">*</font>
+		</p>
+	    
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/laporan-kustom/index" class="UIbutton-small">Kembali</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

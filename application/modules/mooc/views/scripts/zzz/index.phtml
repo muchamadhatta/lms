@@ -1,0 +1,25 @@
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?= $this->avatar; ?> TEST CHAT GPT</h1>
+</div>
+<div class="clear"></div>
+<div class="tabular">
+
+	<form method="post">
+		<p>
+			<label class="left" for="pesan">Pesan</label>
+			<textarea id="pesan" name="pesan" rows="5" cols="50"></textarea><br />
+		</p>
+		<p class="savecancel">
+			<label class="UIbutton-small"><input type="submit" value="CARI JAWABAN" class="" /></label>
+		</p>
+	</form>
+
+	<? if ($this->respon != ''){ ?>
+
+		<textarea id="respon" name="respon" rows="5" cols="50"><?= $this->respon ?></textarea><br />
+	<? } else {
+		echo 'Data tidak ditemukan.';
+	}
+	?>
+</div>

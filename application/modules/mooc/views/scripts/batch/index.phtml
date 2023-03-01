@@ -1,0 +1,67 @@
+<script id="js">
+	$(function() {
+		$("table")
+			.tablesorter({
+				theme: 'blue',
+				widthFixed: true,
+				widgets: ['zebra', 'filter']
+			})
+			.tablesorterPager({
+				container: $(".pager"),
+				output: '{startRow} - {endRow} / {filteredRows} ({totalRows})',
+				fixedHeight: true,
+				removeRows: false,
+				cssGoto: '.gotoPage'
+			});
+	});
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?= $this->avatar; ?> Daftar Batch</h1>
+	<div class="header_nav_links"><span class="right context_menu"><a href="/admin/batch/add" class="UIlink-button small right">Tambah Batch</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+	<?= $this->pager; ?>
+
+	<table class="tablesorter">
+		<thead>
+			<tr>
+				<th width="5px">No.</th>
+				<th>Judul/Deskripsi Batch</th>
+				<th>Nama Kelas Batch</th>
+				<th>Nama Pengajar</th>
+				<th>Aksi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$index = 1;
+			foreach ($this->rows as $row) {
+				$KelasService = new KelasService();
+				$PengajarService = new PengajarService();
+				$nama_kelas = $KelasService->getData($row->id_kelas);
+				$nama_pengajar = $PengajarService->getData($row->id_pengajar);
+				echo '<tr>';
+				echo '<td align="center">' . $index++ . '.</td>';
+				echo '<td>'.$row->judul_batch.'<br><span class="timespan">'.$row->deskripsi.'</span></td>';
+				echo '<td>'.$nama_kelas->nama_kelas.'</td>';
+				echo '<td>'.$nama_pengajar->nama_pengajar.'</td>';
+				echo '<td align="center"><a href="/admin/batch/edit/id/' . $row->id . '">EDIT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/batch/delete/id/' . $row->id . '" onclick="return confirmDelete();">DELETE</a>';
+				}
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+}
+?>

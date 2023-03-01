@@ -1,0 +1,229 @@
+
+		<!---->
+		<div class="gallery">
+			<h1>Topik Terhangat</h1>
+			<!-- requried-jsfiles-for owl -->
+			<link href="<?=$this->url_statik;?>/diparlin/css/owl.carousel.css" rel="stylesheet">
+			<script src="<?=$this->url_statik;?>/diparlin/js/owl.carousel.js"></script>
+				<script>
+					$(document).ready(function() {
+						$("#owl-demo").owlCarousel({
+							items : 3,
+							lazyLoad : true,
+							autoPlay : true,
+							pagination : false,
+							navigation : true,
+							navigationText :  true,			     
+						});
+					});
+				</script>
+			<!-- //requried-jsfiles-for owl -->
+			<!-- start content_slider -->
+			<div id="owl-demo" class="owl-carousel ">
+				<?
+				foreach($this->TopStoriesRows as $row)
+				{
+					$image = ($row->file_name != null) ? $this->url_berkas . '/artikel/' . $row->file_name : $this->url_berkas . '/images/ci6.png';
+					echo '<div class="item g1">
+						<a href="/index/single/id/' . $row->id . '"><img class="lazyOwl " data-src="' . $image . '" alt="name"></a>
+						<div class="caption">
+							<h3 class="cinema"><a href="/index/single/id/' . $row->id . '">' . $row->tipe_artikel . '</a></h3>	
+							<p>' . $this->LimitWord(strip_tags($row->judul), 15) . '</p>					
+						</div>
+					</div>';
+				}
+				?>
+			</div>
+			<!--//sreen-gallery-cursual---->
+		</div>
+		
+		<!---->
+<div class="content">
+	<div class="col-md-8 content-top">
+		<?
+		foreach($this->ArtikelRows as $row)
+		{			
+			$image = ($row->file_name != null) ? $this->url_berkas . '/artikel/' . $row->file_name : $this->url_berkas . '/images/ci6.png';
+
+			echo '<div class="number">
+					<div class="feb">
+						<b>' . $this->FormatDate($row->tanggal, '%d') . '</b>
+						<label>' . $this->FormatDate($row->tanggal, '%b') . '</label>
+					</div>
+				<h3><a href="/index/single/id/' . $row->id . '">' . $row->judul . '</a></h3>
+				<p align="justify">' . $this->LimitWord(strip_tags($row->konten), 100) . ' ... </p>
+				<a href="/index/single/id/' . $row->id . '" class="more">Selengkapnya >> </a>		
+		<!---->	<br><br>	
+				<div class="span_8">
+				  <div class="row_8">
+					<div class="sap_tabs">	
+					  <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+							  <div class="resp-tabs-container">
+									<h2 class="resp-accordion " role="tab" aria-controls="tab_item-0"><span class="resp-arrow"></span></h2>
+									<div class="tab-1 resp-tab-content " aria-labelledby="tab_item-0">
+										<div class="facts">
+											<img src="' . $image . '" class="img-responsive" alt=""> 			     
+										</div>
+									 </div>			        					 
+								</div>
+								  <ul class="resp-tabs-list" style="display: none;">
+									<li class="resp-tab-item resp-tab-active" aria-controls="tab_item-0" role="tab"><span><img src="' . $image . '" class="img-responsive" alt=""></span></li>
+									<div class="clearfix"> </div>
+								</ul>		
+							</div>
+						</div>
+					</div>
+				</div>
+					
+					
+				<!---->
+				<div class="movie">
+					<ul class="comment">
+						<li><span>Kategori : <a href="/index/magazine/id/' . $row->id_tipe_artikel . '"> ' . $row->tipe_artikel . '</a> </span></li>
+						<!--<li><a href="/index/magazine/id/' . $row->id_tipe_artikel . '"><i> </i>' . $row->tipe_artikel . '</a></li>-->
+					</ul>				
+					<!--<a href="/index/single/id/' . $row->id . '" class="more">Selengkapnya >> </a>-->
+				<div class="clearfix"> </div>
+				</div>
+			</div>
+				<!---->';
+		}
+		?>
+			
+			<!---->
+			<div class="older-top">
+			<? if ($this->hal != 0 ) echo  '<a href="/index/index/p/'.($this->hal-1).'" class="older"><i> </i>artikel baru</a>'; ?>
+			<a href="/index/index/p/<?=$this->hal+1;?>" class="older top-old">artikel lama<i> </i></a>
+				<div class="clearfix"> </div>
+			</div>
+			<!---->
+	</div>
+	<!---->
+		<div class="col-md-4 content-bottom">
+			<div class="story"><h4  class="stories"><span>Artikel Terbaru</span></h4></div>
+			<!---->
+			<div class="cd-tabs">
+				<ul class="cd-tabs-content">
+					<div class="top-men">
+						<?
+						foreach($this->LatestArticleRows as $row)
+						{
+							$image = ($row->file_name != null) ? $this->url_berkas . '/artikel/' . $row->file_name : $this->url_berkas . '/images/ci6.png';
+
+							echo '<div class="men">
+								<div class="grid-men">
+									<a href="/index/single/id/' . $row->id . '"><img src="' . $image . '" class="img-responsive" alt=""> </a>
+								</div>
+								<div class="men-grid">
+									<h5><a href="/index/single/id/' . $row->id . '">' . $this->LimitWord(strip_tags($row->judul), 10) . '</a> </h5>
+									<p>' . $this->LimitWord(strip_tags($row->konten), 15) . ' ...</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>';
+						}
+						?>
+					</div>
+
+					<?/*
+					$indeks = 1;
+					$tipe_artikel = '';
+					foreach($this->TopStoriesGroupRows as $row)
+					{
+						if ($tipe_artikel != $row->tipe_artikel)
+						{
+							if ($indeks > 1)
+								echo '</div></li>';
+							
+							$selected = ($indeks == 1) ? ' selected' : '';
+							echo '<li data-content="' . $row->tipe_artikel . '" class="' . $selected . '">
+								<div class="top-men">';
+							$indeks = 1;
+						}
+							
+						echo '<div class="men">
+							<div class="grid-men">
+								<a href="/index/single/id/' . $row->id . '"><img src="' . $this->url_berkas . '/images/ci6.png" class="img-responsive" alt=""> </a>
+							</div>
+							<div class="men-grid">
+								<h5><a href="/index/single/id/' . $row->id . '">' . $row->judul . '</a> </h5>
+								<p>' . $this->LimitWord(strip_tags($row->konten), 25) . '</p>
+							</div>
+							<div class="clearfix"></div>
+						</div>';
+
+						$tipe_artikel = $row->tipe_artikel;
+						$indeks++;
+					}
+
+					echo '</div>
+						</li>';*/
+					?>
+
+					<div class="clearfix"></div>
+				</ul> 
+			</div> 
+			<!---->
+
+			<div class="might">
+				<h4>Artikel Populer</h4>
+				<?
+				foreach($this->PopularArticleRows as $row)
+				{
+					$image = ($row->file_name != null) ? $this->url_berkas . '/artikel/' . $row->file_name : $this->url_berkas . '/images/ci6.png';
+
+					echo '<div class="might-grid">
+						<div class="grid-might">
+							<a href="/index/single/id/' . $row->id . '"><img src="' . $image . '" class="img-responsive" alt=""> </a>
+						</div>
+						<div class="might-top">
+							<p>' . $row->judul . '</p> [' . $row->jumlah_kunjungan . ' views]
+							<a href="/index/single/id/' . $row->id . '">Selengkapnya <i> </i></a>
+						</div>
+						<div class="clearfix"></div>
+					</div>';
+				}
+				?>
+			</div>
+			<!---->
+				<div class="grid-top">
+					<h4>Arsip</h4>
+					<ul>
+						<?
+						foreach($this->ArchiveArtikelRows as $row)
+						{
+							echo '<li><a href="/index/single/id/' . $row->id . '">' . $row->judul . '</a></li>';
+						}
+						?>
+						<!--<li><a href="single.html">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </a></li>
+						<li><a href="single.html">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</a></li>
+						<li><a href="single.html">When an unknown printer took a galley of type and scrambled it to make a type specimen book. </a> </li>
+						<li><a href="single.html">It has survived not only five centuries, but also the leap into electronic typesetting</a> </li>
+						<li><a href="single.html">Remaining essentially unchanged. It was popularised in the 1960s with the release of </a> </li>
+						<li><a href="single.html">Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing </a> </li>
+						<li><a href="single.html">Software like Aldus PageMaker including versionsof Lorem Ipsum.</a> </li>-->
+					</ul>
+				</div>
+				<!---->
+				<div class="grid-top-in">
+					<h4>Kata Kunci</h4>
+					<p>
+						<?
+						$arrClass = array('jol', 'lop', 'bun', 'live', 'dan', 'eva');
+						foreach($this->TagRows as $row)
+						{
+							$randIndex = array_rand($arrClass);
+							echo '<a href="#" class="' . $arrClass[$randIndex] . '">' . $row->tag . ' </a>';
+						}
+						?>
+					 </p>				
+				</div>
+				<!---->
+		</div>
+		<div class="clearfix"></div>
+		</div>
+	</div>
+
+	<i class="line"> </i>
+	<i class="line-in"> </i>
+	<i class="line-in line-in1"> </i>
+	<i class="line-in line-in2"> </i>
