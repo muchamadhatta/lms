@@ -1,0 +1,115 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	});
+	$(function() {
+		$("#tgl_awal").datepicker({
+			yearRange: "-1:+0",
+			changeYear: "true",
+			changeMonth: "true",
+			dateFormat: "dd-mm-yy"
+		});
+		$("#tgl_akhir").datepicker({
+			yearRange: "-1:+0",
+			changeYear: "true",
+			changeMonth: "true",
+			dateFormat: "dd-mm-yy"
+		});
+	});
+</script>
+<script>
+	function selectFields1(id, id, nama_pelatihan) {
+		$('#id_pelatihan').val(id);
+		// $('#nit_tsp').val(id);
+		$('#nama_pelatihan').val(nama_pelatihan);
+		$.facebox.close();
+	}
+
+	function ClearFields1() {
+		document.getElementById("id_pelatihan").value = "";
+		// document.getElementById("nit_tsp").value = "";
+		document.getElementById("nama_pelatihan").value = "";
+	}
+
+	function selectFields2(id, id, nama_coach) {
+		$('#id_coach').val(id);
+		// $('#nit_tsp').val(id);
+		$('#nama_coach').val(nama_coach);
+		$.facebox.close();
+	}
+
+	function ClearFields2() {
+		document.getElementById("id_coach").value = "";
+		// document.getElementById("nit_tsp").value = "";
+		document.getElementById("nama_coach").value = "";
+	}
+</script>
+
+<script src="<?= $this->url_statik; ?>/js/tinymce/tinymce.min.js"></script>
+
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Batch</h1>
+	<div class="header_nav_links"><a href="/admin/batch/index">Back to Daftar Batch</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="judul_batch">Judul Batch</label>
+			<textarea id="judul_batch" class="event-message" wrap="soft" rows="6" cols="60" name="judul_batch" style="overflow: hidden; display: block;"><?= $this->row->judul_batch; ?></textarea>
+		</p>
+
+		<p><label>Nama Pelatihan</label>
+			<input readonly class="required" type="text" id="nama_pelatihan" autocomplete="disable" name="nama_pelatihan" value="<?= $this->nama_pelatihan; ?>"   />
+			<input class="required" type="hidden" id="id_pelatihan" autocomplete="disable" name="id_pelatihan" value="<?= $this->row->id_pelatihan; ?>" />
+			<input type="button" value="..." id="btnpelatihan" onclick="jQuery.facebox({ ajax: '/admin/batch/search-pelatihan'});">
+			<input type="button" onclick="ClearFields1();" value="Clear">
+			<font color="red">*</font>
+		</p>
+
+		<p><label>Nama Coach</label>
+			<input readonly class="required" type="text" id="nama_coach" autocomplete="disable" name="nama_coach" value="<?= $this->nama_coach; ?>" />
+			<input class="required" type="hidden" id="id_coach" autocomplete="disable" name="id_coach" value="<?= $this->row->id_coach; ?>" />
+			<input type="button" value="..." id="btncoach" onclick="jQuery.facebox({ ajax: '/admin/batch/search-coach'});">
+			<input type="button" onclick="ClearFields2();" value="Clear">
+			<font color="red">*</font>
+		</p>
+		
+		<p>
+			<label class="left" for="deskripsi">Tipe Batch</label>
+			<select name="tipe_batch" id="tipe_batch" onchange="changeBatch()">
+				<option value="freebatch" <?= ($this->row->tipe_batch == 'freebatch' ? ' selected' : '') ?>>Free Batch</option>
+				<option value="offline"  <?= ($this->row->tipe_batch == 'offline' ? ' selected' : '') ?>>Offline</option>
+			</select>
+
+		</p>
+		
+		<p>
+			<label class="left" for="kuota_peserta">Kuota Peserta</label>
+			<input type="text" class="required" id="kuota_peserta" name="kuota_peserta" value="<?= $this->row->kuota_peserta; ?>"/> 
+		</p>
+	
+		<p><label>Tanggal Awal</label>
+			<input class="required" type="text" id="tgl_awal" autocomplete="disable" name="tgl_awal" value="<?= date('d-m-Y', strtotime($this->row->tgl_awal)); ?>" style="width: 120px;" />
+			<font color="red">*</font>
+		</p>
+		<p><label>Tanggal Akhir</label>
+			<input class="required" type="text" id="tgl_akhir" autocomplete="disable" name="tgl_akhir" value="<?= date('d-m-Y', strtotime($this->row->tgl_akhir)); ?>" style="width: 120px;" />
+			<font color="red">*</font>
+		</p>
+
+		<input type="hidden" name="id" value="<?= $this->row->id; ?>" />
+	    
+		<p class="savecancel">
+			<?
+			//if ($this->getRole() == "admin" || $this->getRole() == "super" || $this->getRole() == "user") {
+				echo '<label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label>';
+			//}
+			?>
+			<a href="/admin/batch/index" class="UIbutton-small">Batal</a>
+		</p>
+	</div>
+</form>
+<div style="clear:both"></div>

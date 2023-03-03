@@ -1,0 +1,48 @@
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 4;
+
+	$(document).ready(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-100:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	})
+</script>
+
+<script>
+function selectFields1(id, id, nama_kelas) {
+		$('#id_kelas').val(id);
+		$('#nama_kelas').val(nama_kelas);
+		$.facebox.close();
+	}
+
+	function ClearFields1() {
+		document.getElementById("id_kelas").value = "";
+		document.getElementById("nama_kelas").value = "";
+	}
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Kelas Silabus</h1>
+	<div class="header_nav_links"><a href="/admin/kelas-silabus/index">Back to Daftar Kelas Silabus</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_silabus">Nama Silabus</label>
+			<textarea id="nama_silabus" class="event-message" wrap="soft" rows="2" cols="60" name="nama_silabus" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p><label>Nama Kelas</label>
+			<input readonly class="required" type="text" id="nama_kelas" autocomplete="disable" name="nama_kelas" />
+			<input class="required" type="hidden" id="id_kelas" autocomplete="disable" name="id_kelas" value="<?= $this->row->id_kelas; ?>" />
+			<input type="button" value="..." id="btnkelas" onclick="jQuery.facebox({ ajax: '/admin/kelas-silabus/search-kelas'});">
+			<input type="button" onclick="ClearFields1();" value="Clear">
+			<font color="red">*</font>
+		</p>
+		
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/kelas-silabus/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Kelas</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/index">Back to Daftar Kelas</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+<div class="tabular">
+		<p>
+			<label class="left" for="nama_kelas">Nama Kelas</label>
+			<textarea id="nama_kelas" class="event-message" wrap="soft" rows="2" cols="60" name="nama_kelas" style="overflow: hidden; display: block;"><?= $this->row->nama_kelas; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="jenis_kelas">Jenis Kelas</label>
+			<textarea id="jenis_kelas" class="event-message" wrap="soft" rows="2" cols="60" name="jenis_kelas" style="overflow: hidden; display: block;"><?= $this->row->jenis_kelas ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="deskripsi">Deskripsi</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="2" cols="60" name="deskripsi" style="overflow: hidden; display: block;"><?= $this->row->deskripsi; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="tentang">Tentang</label>
+			<textarea id="tentang" class="event-message" wrap="soft" rows="2" cols="60" name="tentang" style="overflow: hidden; display: block;"><?= $this->row->tentang; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="file_thumbnail">Thumbnail</label> 
+			<?
+			if ($this->row->thumbnail_uri != '') {
+				echo '<img src="https://berkas.dpr.go.id/mooc/thumbkelas/' . $this->row->thumbnail_uri . '" height="200" />';
+				echo '<a href="/admin/kelas/delete-files/id/' . $this->row->id . '  ">Hapus</a>';
+				echo '<input type="hidden" id="file_thumbnail" autocomplete="disable" name="file_thumbnail" value="'.$this->row->thumbnail_uri.'"/>';
+			} else {
+				echo '<input type="file" accept="image/*" id="file_thumbnail" autocomplete="disable" name="file_thumbnail"/>';
+			}
+			?>
+		</p>
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/kelas/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

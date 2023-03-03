@@ -1,0 +1,50 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Admin</h1>
+	<div class="header_nav_links"><a href="/admin/admin/index">Back to Daftar Admin</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+<div class="tabular">
+		<p>
+			<label class="left" for="nama_admin">Nama Admin</label>
+			<textarea id="nama_admin" class="event-message" wrap="soft" rows="2" cols="60" name="nama_admin" style="overflow: hidden; display: block;"><?= $this->row->nama_admin; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="identitas_admin">NIP</label>
+			<textarea id="identitas_admin" class="event-message" wrap="soft" rows="2" cols="60" name="identitas_admin" style="overflow: hidden; display: block;"><?= $this->row->identitas_admin ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="instansi">Instansi</label>
+			<textarea id="instansi" class="event-message" wrap="soft" rows="2" cols="60" name="instansi" style="overflow: hidden; display: block;"><?= $this->row->instansi; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="email">Email</label>
+			<textarea id="email" class="event-message" wrap="soft" rows="2" cols="60" name="email" style="overflow: hidden; display: block;"><?= $this->row->email; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="no_telp">No Telp</label>
+			<textarea id="no_telp" class="event-message" wrap="soft" rows="2" cols="60" name="no_telp" style="overflow: hidden; display: block;"><?= $this->row->no_telp ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="fotoadmin_uri">Foto Pengajar</label> 
+			<?
+			if ($this->row->fotoadmin_uri != '') {
+				echo '<img src="https://berkas.dpr.go.id/mooc/fotoadmin/' . $this->row->fotoadmin_uri . '" height="200" />';
+				echo '<a href="/admin/admin/delete-files/id/' . $this->row->id . '  ">Hapus</a>';
+				echo '<input type="hidden" id="file_name" autocomplete="disable" name="file_name" value="'.$this->row->fotoadmin_uri.'"/>';
+			} else {
+				echo '<input type="file" accept="image/*" id="file_name" autocomplete="disable" name="file_name"/>';
+			}
+			?>
+		</p>
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/admin/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

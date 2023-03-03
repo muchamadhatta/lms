@@ -1,0 +1,44 @@
+<script type="text/javascript">
+var DecimalSeparator = ",";
+var ThousandSeparator = ".";
+var CurrencyDecimalDigits = 4;
+
+	$(document).ready(function() {
+		$("#compose").validate();
+		$("#tanggal").datepicker({yearRange:"-100:+1",changeYear:"true",changeMonth:"true",dateFormat:"dd-mm-yy"});
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Tambah Kelas</h1>
+	<div class="header_nav_links"><a href="/admin/kelas/index">Back to Daftar Kelas</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+	<div class="tabular">
+		<p>
+			<label class="left" for="nama_kelas">Nama Kelas</label>
+			<textarea id="nama_kelas" class="event-message" wrap="soft" rows="2" cols="60" name="nama_kelas" style="overflow: hidden; display: block;"></textarea>
+		</p>
+		<p>
+			<label class="left" for="jenis_kelas">Jenis Kelas</label>
+			<textarea id="jenis_kelas" class="event-message" wrap="soft" rows="2" cols="60" name="jenis_kelas" style="overflow: hidden; display: block;"><?= $this->jenis_kelas ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="deskripsi">Deskripsi</label>
+			<textarea id="deskripsi" class="event-message" wrap="soft" rows="2" cols="60" name="deskripsi" style="overflow: hidden; display: block;"><?= $this->deskripsi; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="tentang">Tentang</label>
+			<textarea id="tentang" class="event-message" wrap="soft" rows="2" cols="60" name="tentang" style="overflow: hidden; display: block;"><?= $this->tentang; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="file_thumbnail">Thumbnail</label> 
+			<input type="file" accept="image/*" id="file_thumbnail" name="file_thumbnail">
+		</P>
+		
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class=""/></label><a href="/admin/kelas/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

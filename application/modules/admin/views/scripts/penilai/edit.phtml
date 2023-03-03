@@ -1,0 +1,50 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Penilai</h1>
+	<div class="header_nav_links"><a href="/admin/penilai/index">Back to Daftar Penilai</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+<div class="tabular">
+		<p>
+			<label class="left" for="nama_penilai">Nama Penilai</label>
+			<textarea id="nama_penilai" class="event-message" wrap="soft" rows="2" cols="60" name="nama_penilai" style="overflow: hidden; display: block;"><?= $this->row->nama_penilai; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="identitas_penilai">NIP/NIK</label>
+			<textarea id="identitas_penilai" class="event-message" wrap="soft" rows="2" cols="60" name="identitas_penilai" style="overflow: hidden; display: block;"><?= $this->row->identitas_penilai ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="instansi">Asal Instansi</label>
+			<textarea id="instansi" class="event-message" wrap="soft" rows="2" cols="60" name="instansi" style="overflow: hidden; display: block;"><?= $this->row->instansi; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="email">Email</label>
+			<textarea id="email" class="event-message" wrap="soft" rows="2" cols="60" name="email" style="overflow: hidden; display: block;"><?= $this->row->email; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="no_telp">No Telp</label>
+			<textarea id="no_telp" class="event-message" wrap="soft" rows="2" cols="60" name="no_telp" style="overflow: hidden; display: block;"><?= $this->row->no_telp ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="fotopenilai_uri">Foto Pengajar</label> 
+			<?
+			if ($this->row->fotopenilai_uri != '') {
+				echo '<img src="https://berkas.dpr.go.id/mooc/fotomentor/' . $this->row->fotopenilai_uri . '" height="200" />';
+				echo '<a href="/admin/penilai/delete-files/id/' . $this->row->id . '  ">Hapus</a>';
+				echo '<input type="hidden" id="file_name" autocomplete="disable" name="file_name" value="'.$this->row->fotopenilai_uri.'"/>';
+			} else {
+				echo '<input type="file" accept="image/*" id="file_name" autocomplete="disable" name="file_name"/>';
+			}
+			?>
+		</p>
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/penilai/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

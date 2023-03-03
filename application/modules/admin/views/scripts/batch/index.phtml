@@ -1,0 +1,79 @@
+<script id="js">
+$(function(){
+	$("table")
+		.tablesorter({theme: 'blue', widthFixed: true, widgets: ['zebra', 'filter']})
+		.tablesorterPager({container: $(".pager"), 
+							output: '{startRow} - {endRow} / {filteredRows} ({totalRows})', 
+							fixedHeight: true, 
+							removeRows: false, 
+							cssGoto: '.gotoPage' });
+});
+</script>
+
+<div class="content-header"></div>
+	<div class="UI_Header_Title">
+		<h1><?=$this->avatar;?> Daftar Batch</h1>
+		<div class="header_nav_links"><span class="right context_menu"><a href="/admin/batch/add" class="UIlink-button small right">Tambah batch</a></span>
+	</div>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+	<?=$this->pager;?>
+
+	<table class="tablesorter">
+		 <thead>
+			 <tr>
+				<th>No.</th>
+				<th>Judul Batch</th>
+				<th>Pelatihan</th>
+				<th>Coach</th>
+				<th>Tipe Batch</th>
+				<th>Kuota</th>
+				<th>Tanggal Awal</th>
+				<th>Tanggal Akhir</th>
+				<th>Aksi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			$index = 1;
+			foreach($this->rows as $row)
+			{
+				$nama_pelatihan = '-';
+				$nama_coach = '-';
+				foreach($this->pelatihan as $x){
+					if ($x->id == $row->id_pelatihan) {
+						$nama_pelatihan = $x->nama_pelatihan;
+					}
+				}
+				foreach($this->coach as $y){
+					if ($y->id == $row->id_coach) {
+						$nama_coach = $y->nama_coach;
+					}
+				}
+				
+				echo '<tr>';
+				echo '<td align="center">'. $index++ .'.</td>';
+				echo '<td>'. $row->judul_batch .'</td>';
+				echo '<td>'. $nama_pelatihan .'</td>';
+				echo '<td>'. $nama_coach .'</td>';
+				echo '<td>'. $row->tipe_batch .'</td>';
+				echo '<td>'. $row->kuota_peserta .'</td>';
+				echo '<td>'. date('d-m-Y', strtotime($row->tgl_awal)) .'</td>';
+				echo '<td>'. date('d-m-Y', strtotime($row->tgl_akhir)) .'</td>';
+				echo '<td align="center"><a href="/admin/batch/edit/id/'. $row->id .'">EDIT</a>';
+				if ($this->getRole() == 'admin' || $this->getRole() == 'super') {
+					echo '&nbsp;|&nbsp;<a href="/admin/batch/delete/id/'. $row->id .'" onclick="return confirmDelete();">DELETE</a>';
+				}
+				echo '</td>';
+				echo '</tr>';
+			}
+			?>
+		</tbody>
+	</table>
+<? } else {
+	echo 'Data tidak ditemukan.';
+}
+?>

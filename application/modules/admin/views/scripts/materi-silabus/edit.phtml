@@ -1,0 +1,95 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#compose").validate();
+	})
+</script>
+
+<script>
+	function selectFields1(id, id, nama_pelatihan) {
+		$('#id_pelatihan').val(id);
+		$('#nama_pelatihan').val(nama_pelatihan);
+		$.facebox.close();
+	}
+
+	function ClearFields1() {
+		document.getElementById("id_pelatihan").value = "";
+		document.getElementById("nama_pelatihan").value = "";
+	}
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+	<h1><?=$this->avatar;?>Edit Materi Silabus</h1>
+	<div class="header_nav_links"><a href="/admin/materi-silabus/index">Back to Daftar Materi Silabus</a></div>
+</div>
+<div class="clear"></div>
+<form id="compose" name="compose" method="post" action="" enctype="multipart/form-data">
+<div class="tabular">
+		<p><label>Nama Pelatihan</label>
+			<input readonly class="required" type="text" id="nama_pelatihan" autocomplete="disable" name="nama_pelatihan" />
+			<input class="required" type="hidden" id="id_pelatihan" autocomplete="disable" name="id_pelatihan" value="<?= $this->row->id_pelatihan; ?>" />
+			<input type="button" value="..." id="btnpelatihan" onclick="jQuery.facebox({ ajax: '/admin/materi-silabus/search-pelatihan'});">
+			<input type="button" onclick="ClearFields1();" value="Clear">
+			<font color="red">*</font>
+		</p>
+		<p>
+			<label class="left" for="nama_materi">Nama Materi</label>
+			<textarea id="nama_materi" class="event-message" wrap="soft" rows="2" cols="60" name="nama_materi" style="overflow: hidden; display: block;"><?= $this->row->nama_materi; ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="deskripsi_materi">Deskripsi Materi</label>
+			<textarea id="deskripsi_materi" class="event-message" wrap="soft" rows="2" cols="60" name="deskripsi_materi" style="overflow: hidden; display: block;"><?= $this->row->deskripsi_materi ?></textarea>
+		</p>
+		<p>
+			<label class="left" for="gambar_materi_uri">Gambar Silabus Materi</label> 
+			<?
+			if ($this->row->gambar_materi_uri != '') {
+				echo '<img src="https://berkas.dpr.go.id/mooc/gambarmateri/' . $this->row->gambar_materi_uri . '" height="200" />';
+				echo '<a href="/admin/materi-silabus/delete-files/id/' . $this->row->id . '  ">Hapus</a>';
+				echo '<input type="hidden" id="file_image" autocomplete="disable" name="file_image" value="'.$this->row->gambar_materi_uri.'"/>';
+			} else {
+				echo '<input type="file" accept="image/*" id="file_image" autocomplete="disable" name="file_image"/>';
+			}
+			?>
+		</p>
+		<p>
+			<label class="left" for="document_materi_uri">File Silabus Materi</label> 
+			<?
+			if ($this->row->document_materi_uri != '') {
+				echo '<input value="https://berkas.dpr.go.id/mooc/filemateri/' . $this->row->document_materi_uri . '" height="200" />';
+				echo '<a href="/admin/materi-silabus/delete-files/id/' . $this->row->id . '">Hapus</a>';
+				echo '<input type="hidden" id="file_pdf" autocomplete="disable" name="file_pdf" value="'.$this->row->document_materi_uri.'"/>';
+			} else {
+				echo '<input type="file" id="file_pdf" autocomplete="disable" name="file_pdf"/>';
+			}
+			?>
+		</p>
+		<p>
+			<label class="left" for="audio_materi_uri">Audio Silabus Materi</label> 
+			<?
+			if ($this->row->audio_materi_uri != '') {
+				echo '<input value="https://berkas.dpr.go.id/mooc/audiomateri/' . $this->row->audio_materi_uri . '" height="200" />';
+				echo '<a href="/admin/materi-silabus/delete-files/id/' . $this->row->id . '">Hapus</a>';
+				echo '<input type="hidden" id="file_audio" autocomplete="disable" name="file_audio" value="'.$this->row->audio_materi_uri.'"/>';
+			} else {
+				echo '<input type="file" id="file_audio" autocomplete="disable" name="file_audio"/>';
+			}
+			?>
+		</p>
+		<p>
+			<label class="left" for="video_materi_uri">Video Silabus Materi</label> 
+			<?
+			if ($this->row->video_materi_uri != '') {
+				echo '<input value="https://berkas.dpr.go.id/mooc/videomateri/' . $this->row->video_materi_uri . '" height="200" />';
+				echo '<a href="/admin/materi-silabus/delete-files/id/' . $this->row->id . '">Hapus</a>';
+				echo '<input type="hidden" id="file_video" autocomplete="disable" name="file_video" value="'.$this->row->video_materi_uri.'"/>';
+			} else {
+				echo '<input type="file" id="file_video" autocomplete="disable" name="file_video"/>';
+			}
+			?>
+		</P>
+
+		<p class="savecancel"><label class="UIbutton-small"><input type="submit" value="Simpan" class="" /></label><a href="/admin/materi-silabus/index" class="UIbutton-small">Batal</a></p>
+	</div>
+</form>
+<div style="clear:both"></div>

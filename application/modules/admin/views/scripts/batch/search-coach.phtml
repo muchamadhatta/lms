@@ -1,0 +1,55 @@
+<script type="text/javascript">
+    $(function() {
+        $("#table_facebox")
+            .tablesorter({
+                theme: 'blue',
+                widthFixed: true,
+                widgets: ['zebra', 'filter']
+            })
+            .tablesorterPager({
+                container: $(".pager2"),
+                output: '{startRow} - {endRow} / {filteredRows} ({totalRows})',
+                fixedHeight: true,
+                removeRows: false,
+                cssGoto: '.gotoPage'
+            });
+    });
+</script>
+
+<div class="content-header"></div>
+<div class="UI_Header_Title">
+    <h1><?= $this->avatar; ?> Pilih Nama Coach</h1>
+</div>
+<div class="clear"></div>
+<br>
+
+<? if (count($this->rows) > 0) { ?>
+    <?= $this->pager2; ?>
+
+    <table cellspacing="1" cellpadding="6" width="100%" class="tablesorter" id="table_facebox">
+        <thead>
+            <tr>
+                <th width="5px">Nomor</th>
+                <th>Nama Coach</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?
+            $i = 1;
+            foreach ($this->rows as $row) {
+                echo '<tr>';
+                echo '<td align="center">' . $row->id . '</td>';
+				echo '<td>' . $row->nama_coach . '</td>';
+                echo '<td align="center"><a href="javascript:selectFields2(\'' . $row->id . '\', \'' . $row->id . '\', \'' . $row->nama_coach . '\')">PILIH</a></td>';
+                echo '</tr>';
+
+                $i++;
+            }
+            ?>
+        </tbody>
+    </table>
+<? } else {
+    echo 'Data tidak ditemukan.';
+}
+?>
